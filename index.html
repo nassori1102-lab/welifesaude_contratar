@@ -1667,5 +1667,33 @@ function showToast(msg, tipo) {
   setTimeout(() => t.classList.remove('show'), 4000);
 }
 </script>
+
+<script>
+(function() {
+  function reportHeight() {
+    var h = Math.max(
+      document.body.scrollHeight,
+      document.body.offsetHeight,
+      document.documentElement.scrollHeight
+    );
+    window.parent.postMessage({ welifeHeight: h }, '*');
+  }
+  // Report on load
+  window.addEventListener('load', reportHeight);
+  // Report on any DOM change (page transitions, dependentes added, etc)
+  var obs = new MutationObserver(reportHeight);
+  obs.observe(document.body, { childList: true, subtree: true, attributes: true });
+  // Report on resize
+  window.addEventListener('resize', reportHeight);
+  // Report every 300ms for the first 2s (catches font/image load)
+  var t = 0;
+  var iv = setInterval(function() {
+    reportHeight();
+    t++;
+    if (t > 6) clearInterval(iv);
+  }, 300);
+})();
+</script>
+
 </body>
 </html>
