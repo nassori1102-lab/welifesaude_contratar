@@ -3,1527 +3,1781 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Portal WeLife</title>
-<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+<title>WeLife — Portal do Vendedor</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
 <style>
-:root{
-  --teal:#1D9E75;--teal-dark:#0F6E56;--teal-xdark:#085041;--teal-light:#E1F5EE;--teal-mid:#9FE1CB;
-  --navy:#143D35;--white:#fff;--gray-50:#F8FAF9;--gray-100:#EEF2F0;--gray-200:#D6DDD9;
-  --gray-400:#8DA89E;--gray-600:#4A6560;--gray-800:#1E2D2A;
-  --danger:#E24B4A;--radius-sm:6px;--radius-md:10px;--radius-lg:16px;--radius-xl:24px;
-  --shadow-sm:0 1px 4px rgba(0,0,0,.07);--shadow-md:0 4px 20px rgba(0,0,0,.10);
-  --font-head:'Sora',sans-serif;--font-body:'DM Sans',sans-serif;--tr:0.18s ease;
-}
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:var(--font-body);background:linear-gradient(135deg,#E1F5EE 0%,#F0FAF6 40%,#EAF5F0 100%);min-height:100vh;color:var(--gray-800);font-size:15px;line-height:1.6}
-.page{display:none}.page.active{display:block}
+  :root {
+    --green: #00C48C;
+    --green-dark: #009E72;
+    --green-light: #E6FAF4;
+    --navy: #0D1B2A;
+    --navy-mid: #1A2F45;
+    --slate: #3D5166;
+    --mist: #8FA3B8;
+    --fog: #C8D8E6;
+    --white: #F7FAFC;
+    --card: #FFFFFF;
+    --danger: #E8455A;
+    --warn: #F5A623;
+    --radius: 16px;
+    --shadow: 0 4px 24px rgba(13,27,42,0.10);
+    --shadow-lg: 0 12px 48px rgba(13,27,42,0.16);
+  }
 
-/* LOGIN */
-.login-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
-.login-card{background:var(--white);border-radius:var(--radius-xl);box-shadow:var(--shadow-md);padding:48px 44px 44px;width:100%;max-width:420px}
-.form-group{margin-bottom:18px}
-.form-group label{display:block;font-size:13px;font-weight:500;color:var(--gray-600);margin-bottom:7px}
-.form-group input{width:100%;padding:12px 14px;border:1.5px solid var(--gray-200);border-radius:var(--radius-md);font-family:var(--font-body);font-size:15px;color:var(--gray-800);background:var(--gray-50);outline:none;transition:border-color var(--tr),box-shadow var(--tr)}
-.form-group input:focus{border-color:var(--teal);box-shadow:0 0 0 3px rgba(29,158,117,.13);background:var(--white)}
-.login-error{background:#FEF0F0;border:1px solid #F9C1C1;color:var(--danger);border-radius:var(--radius-sm);padding:10px 14px;font-size:13px;margin-bottom:14px;display:none}
-.login-error.show{display:block}
+  * { box-sizing: border-box; margin: 0; padding: 0; }
 
-/* HEADER */
-.app-header{background:var(--white);border-bottom:1px solid var(--gray-100);padding:0 32px;height:60px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:var(--shadow-sm)}
-.vendedor-badge{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--gray-600)}
-.avatar{width:34px;height:34px;background:var(--teal-light);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--font-head);font-weight:700;font-size:13px;color:var(--teal-dark)}
-.btn-sair{background:none;border:1.5px solid var(--gray-200);border-radius:var(--radius-sm);padding:6px 14px;font-size:13px;color:var(--gray-600);cursor:pointer;font-family:var(--font-body);transition:all var(--tr)}
-.btn-sair:hover{border-color:var(--danger);color:var(--danger)}
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--white);
+    color: var(--navy);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
 
-/* MAIN */
-.main-content{max-width:860px;margin:0 auto;padding:36px 24px 80px}
+  /* ─── HEADER ─── */
+  .header {
+    background: var(--navy);
+    padding: 0 32px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 2px solid var(--green);
+  }
+  .logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 22px;
+    color: var(--white);
+    letter-spacing: -0.5px;
+  }
+  .logo span { color: var(--green); }
+  .header-user {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    color: var(--mist);
+  }
+  .header-user .badge {
+    background: var(--green);
+    color: var(--navy);
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+  }
+  .btn-logout {
+    background: none;
+    border: 1px solid var(--slate);
+    color: var(--mist);
+    padding: 4px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 12px;
+    font-family: inherit;
+    transition: all .2s;
+  }
+  .btn-logout:hover { border-color: var(--danger); color: var(--danger); }
 
-/* STEPPER */
-.stepper{display:flex;align-items:center;margin-bottom:36px;overflow-x:auto;padding-bottom:4px}
-.step-item{display:flex;align-items:center;gap:8px;flex-shrink:0}
-.step-circle{width:30px;height:30px;border-radius:50%;background:var(--gray-100);border:2px solid var(--gray-200);display:flex;align-items:center;justify-content:center;font-family:var(--font-head);font-size:12px;font-weight:700;color:var(--gray-400);transition:all var(--tr);flex-shrink:0}
-.step-circle.active{background:var(--teal);border-color:var(--teal);color:var(--white);box-shadow:0 0 0 4px rgba(29,158,117,.15)}
-.step-circle.done{background:var(--teal-light);border-color:var(--teal);color:var(--teal-dark)}
-.step-label{font-size:12px;color:var(--gray-400);font-weight:500;white-space:nowrap}
-.step-label.active{color:var(--teal-dark);font-weight:600}.step-label.done{color:var(--teal)}
-.step-line{flex:1;min-width:24px;height:2px;background:var(--gray-200);margin:0 6px}
-.step-line.done{background:var(--teal-mid)}
+  /* ─── PROGRESS BAR ─── */
+  .progress-wrap {
+    background: var(--navy-mid);
+    padding: 0 32px;
+    display: flex;
+    gap: 0;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .step-tab {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 20px 14px 0;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--slate);
+    white-space: nowrap;
+    transition: color .3s;
+  }
+  .step-tab .num {
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    background: var(--slate);
+    color: var(--navy);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+    flex-shrink: 0;
+    transition: background .3s;
+  }
+  .step-tab.active { color: var(--green); }
+  .step-tab.active .num { background: var(--green); }
+  .step-tab.done { color: var(--mist); }
+  .step-tab.done .num { background: var(--green-dark); color: #fff; }
+  .step-sep {
+    color: var(--slate);
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    padding: 0 4px;
+  }
 
-/* TITLES */
-.section-title{font-family:var(--font-head);font-size:22px;font-weight:700;color:var(--navy);margin-bottom:6px}
-.section-sub{font-size:14px;color:var(--gray-600);margin-bottom:28px}
+  /* ─── MAIN ─── */
+  .main {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+  }
 
-/* TIPO CARDS */
-.tipo-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-bottom:32px}
-.tipo-card{background:var(--white);border:2px solid var(--gray-200);border-radius:var(--radius-lg);padding:28px 24px;cursor:pointer;transition:all var(--tr);position:relative;overflow:hidden}
-.tipo-card:hover{border-color:var(--teal);box-shadow:var(--shadow-md);transform:translateY(-2px)}
-.tipo-card.selected{border-color:var(--teal);background:linear-gradient(135deg,#F0FAF6,#E8F7F2);box-shadow:0 0 0 4px rgba(29,158,117,.10)}
-.tipo-icon{width:44px;height:44px;border-radius:var(--radius-md);background:var(--teal-light);display:flex;align-items:center;justify-content:center;margin-bottom:14px}
-.tipo-icon svg{width:22px;height:22px}
-.tipo-card h3{font-family:var(--font-head);font-size:16px;font-weight:700;color:var(--navy);margin-bottom:6px}
-.tipo-card p{font-size:13px;color:var(--gray-600);line-height:1.5}
-.check-badge{position:absolute;top:14px;right:14px;width:22px;height:22px;border-radius:50%;background:var(--teal);display:none;align-items:center;justify-content:center}
-.tipo-card.selected .check-badge{display:flex}
-.check-badge svg{width:12px;height:12px}
+  /* ─── SCREENS ─── */
+  .screen { display: none; animation: fadeUp .35s ease both; }
+  .screen.active { display: block; }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
 
-/* FORM CARD */
-.form-card{background:var(--white);border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);border:1px solid var(--gray-100);padding:28px 32px;margin-bottom:20px}
-.form-card-title{font-family:var(--font-head);font-size:15px;font-weight:700;color:var(--navy);margin-bottom:20px;padding-bottom:14px;border-bottom:1px solid var(--gray-100);display:flex;align-items:center;gap:10px}
-.tag{font-size:11px;font-weight:600;background:var(--teal-light);color:var(--teal-dark);padding:3px 9px;border-radius:20px;letter-spacing:.04em}
-.tag.opcional{background:var(--gray-100);color:var(--gray-600)}
+  /* ─── CARD ─── */
+  .card {
+    background: var(--card);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 36px;
+    border: 1px solid var(--fog);
+  }
+  .card + .card { margin-top: 20px; }
 
-.form-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:16px}
-.form-row.full{grid-template-columns:1fr}
-.form-row.two{grid-template-columns:1fr 1fr}
-.form-row.three{grid-template-columns:1fr 1fr 1fr}
-.field{display:flex;flex-direction:column;gap:6px}
-.field label{font-size:12px;font-weight:600;color:var(--gray-600);letter-spacing:.04em;text-transform:uppercase}
-.field label .req{color:var(--teal);margin-left:2px}
-.field input,.field select,.field textarea{padding:11px 14px;border:1.5px solid var(--gray-200);border-radius:var(--radius-sm);font-family:var(--font-body);font-size:14px;color:var(--gray-800);background:var(--gray-50);outline:none;transition:border-color var(--tr),box-shadow var(--tr);width:100%}
-.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--teal);box-shadow:0 0 0 3px rgba(29,158,117,.10);background:var(--white)}
-.field input.error,.field select.error{border-color:var(--danger)!important;box-shadow:0 0 0 3px rgba(226,75,74,.12)!important}
-.field .err-msg{font-size:11px;color:var(--danger);margin-top:2px;display:none}
-.field .err-msg.show{display:block}
-.field select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238DA89E' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:36px}
-.field textarea{resize:vertical;min-height:80px}
+  /* ─── TITLES ─── */
+  .screen-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 6px;
+  }
+  .screen-sub {
+    color: var(--mist);
+    font-size: 14px;
+    margin-bottom: 28px;
+    line-height: 1.5;
+  }
+  .section-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    color: var(--mist);
+    margin-bottom: 12px;
+  }
 
-/* PLANOS */
-.planos-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin-top:4px}
-.plano-card{border:2px solid var(--gray-200);border-radius:var(--radius-md);padding:18px 16px;cursor:pointer;transition:all var(--tr);text-align:center;position:relative}
-.plano-card:hover{border-color:var(--teal);transform:translateY(-1px)}
-.plano-card.selected{border-color:var(--teal);background:var(--teal-light)}
-.plano-card.popular{border-color:var(--teal-dark)}
-.plano-badge{position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:var(--teal-dark);color:var(--white);font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;white-space:nowrap;letter-spacing:.05em}
-.plano-nome{font-family:var(--font-head);font-size:14px;font-weight:700;color:var(--navy);margin-bottom:4px}
-.plano-preco{font-family:var(--font-head);font-size:22px;font-weight:700;color:var(--teal-dark)}
-.plano-preco span{font-size:11px;font-weight:500;color:var(--gray-600)}
-.plano-desc{font-size:11px;color:var(--gray-600);margin-top:4px}
+  /* ─── FORM ─── */
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .form-row.one { grid-template-columns: 1fr; }
+  .form-row.three { grid-template-columns: 1fr 1fr 1fr; }
+  .form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 0; }
+  .form-group + .form-group { margin-top: 0; }
+  .rows-gap { display: flex; flex-direction: column; gap: 16px; }
 
-/* PAGAMENTO */
-.pag-toggle{display:flex;gap:10px;margin-top:4px}
-.pag-btn{flex:1;padding:11px;border:2px solid var(--gray-200);border-radius:var(--radius-sm);background:var(--gray-50);font-family:var(--font-body);font-size:14px;font-weight:500;color:var(--gray-600);cursor:pointer;transition:all var(--tr);text-align:center}
-.pag-btn:hover{border-color:var(--teal)}
-.pag-btn.selected{border-color:var(--teal);background:var(--teal-light);color:var(--teal-dark);font-weight:600}
-.pag-btn .desconto{font-size:11px;color:var(--teal);display:block;margin-top:2px}
+  label {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--slate);
+    letter-spacing: 0.2px;
+  }
+  input, select, textarea {
+    border: 1.5px solid var(--fog);
+    border-radius: 10px;
+    padding: 10px 14px;
+    font-family: inherit;
+    font-size: 14px;
+    color: var(--navy);
+    background: #fff;
+    transition: border-color .2s, box-shadow .2s;
+    outline: none;
+  }
+  input:focus, select:focus, textarea:focus {
+    border-color: var(--green);
+    box-shadow: 0 0 0 3px rgba(0,196,140,0.15);
+  }
+  input.error { border-color: var(--danger); }
+  .field-hint { font-size: 11px; color: var(--mist); margin-top: 2px; }
+  .field-error { font-size: 11px; color: var(--danger); margin-top: 2px; display: none; }
 
-/* MODALIDADE */
-.mod-toggle{display:flex;gap:10px;margin-bottom:20px}
-.mod-btn{flex:1;padding:14px;border:2px solid var(--gray-200);border-radius:var(--radius-md);background:var(--gray-50);font-family:var(--font-body);font-size:14px;font-weight:500;color:var(--gray-600);cursor:pointer;transition:all var(--tr);text-align:center}
-.mod-btn:hover{border-color:var(--teal)}
-.mod-btn.selected{border-color:var(--teal);background:var(--teal-light);color:var(--teal-dark);font-weight:600}
-.mod-btn .mod-desc{font-size:11px;color:var(--gray-400);display:block;margin-top:3px}
-.mod-btn.selected .mod-desc{color:var(--teal)}
+  /* ─── BUTTONS ─── */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 13px 28px;
+    border-radius: 10px;
+    font-family: 'Syne', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: all .2s;
+    text-decoration: none;
+  }
+  .btn-primary {
+    background: var(--green);
+    color: var(--navy);
+  }
+  .btn-primary:hover { background: var(--green-dark); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(0,196,140,0.3); }
+  .btn-secondary {
+    background: var(--white);
+    color: var(--slate);
+    border: 1.5px solid var(--fog);
+  }
+  .btn-secondary:hover { border-color: var(--mist); }
+  .btn-danger {
+    background: var(--danger);
+    color: #fff;
+  }
+  .btn-danger:hover { background: #c73348; transform: translateY(-1px); }
+  .btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none !important; }
+  .btn-full { width: 100%; }
+  .btn-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 32px;
+    justify-content: flex-end;
+  }
 
-/* NEGOCIAÇÃO */
-.neg-check{display:flex;align-items:center;gap:10px;padding:14px 16px;background:#FFFBF0;border:1px solid #FAC775;border-radius:var(--radius-sm);cursor:pointer;margin-top:12px}
-.neg-check input[type=checkbox]{width:16px;height:16px;accent-color:var(--teal);cursor:pointer}
-.neg-check label{font-size:13px;color:#633806;cursor:pointer;font-weight:500}
-.neg-fields{display:none;margin-top:12px}.neg-fields.show{display:block}
+  /* ─── LOGIN ─── */
+  #screen-login {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: calc(100vh - 60px);
+    padding: 40px 24px;
+  }
+  #screen-login.active { display: flex; }
+  .login-card {
+    background: var(--card);
+    border-radius: 24px;
+    box-shadow: var(--shadow-lg);
+    padding: 48px 40px;
+    width: 100%;
+    max-width: 400px;
+    border: 1px solid var(--fog);
+    position: relative;
+    overflow: hidden;
+  }
+  .login-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--green), var(--green-dark));
+  }
+  .login-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 32px;
+    color: var(--navy);
+    text-align: center;
+    margin-bottom: 4px;
+    letter-spacing: -1px;
+  }
+  .login-logo span { color: var(--green); }
+  .login-tagline {
+    text-align: center;
+    color: var(--mist);
+    font-size: 13px;
+    margin-bottom: 36px;
+  }
+  .login-error {
+    background: #FEE8EB;
+    border: 1px solid #F5C6CB;
+    color: var(--danger);
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 13px;
+    margin-bottom: 16px;
+    display: none;
+  }
 
-/* DEPENDENTES / BENEFICIÁRIOS */
-.dep-item{border:1px solid var(--gray-200);border-radius:var(--radius-md);padding:20px;margin-bottom:14px;background:var(--gray-50)}
-.dep-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
-.dep-title{font-family:var(--font-head);font-size:13px;font-weight:700;color:var(--navy)}
-.btn-remover{background:none;border:1px solid var(--gray-200);border-radius:var(--radius-sm);padding:5px 12px;font-size:12px;color:var(--danger);cursor:pointer;font-family:var(--font-body);transition:all var(--tr)}
-.btn-remover:hover{background:#FEF0F0;border-color:var(--danger)}
-.btn-add{display:flex;align-items:center;gap:8px;padding:11px 20px;background:none;border:2px dashed var(--teal-mid);border-radius:var(--radius-md);color:var(--teal);font-family:var(--font-body);font-size:14px;font-weight:500;cursor:pointer;transition:all var(--tr);width:100%;justify-content:center;margin-top:8px}
-.btn-add:hover{background:var(--teal-light);border-color:var(--teal)}
+  /* ─── PRODUCT CARDS ─── */
+  .product-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .product-card {
+    border: 2px solid var(--fog);
+    border-radius: var(--radius);
+    padding: 24px;
+    cursor: pointer;
+    transition: all .2s;
+    position: relative;
+    background: #fff;
+  }
+  .product-card:hover:not(.disabled) { border-color: var(--green); box-shadow: 0 4px 16px rgba(0,196,140,0.15); }
+  .product-card.selected { border-color: var(--green); background: var(--green-light); }
+  .product-card.disabled { opacity: 0.45; cursor: not-allowed; }
+  .product-tag {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 3px 8px;
+    border-radius: 20px;
+    display: inline-block;
+    margin-bottom: 12px;
+  }
+  .product-tag.active { background: var(--green-light); color: var(--green-dark); }
+  .product-tag.soon { background: #FFF3E0; color: #E65100; }
+  .product-icon { font-size: 32px; margin-bottom: 10px; }
+  .product-name {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    color: var(--navy);
+    margin-bottom: 4px;
+  }
+  .product-desc { font-size: 13px; color: var(--mist); line-height: 1.4; }
 
-/* UPLOAD */
-.upload-zone{border:2px dashed var(--gray-200);border-radius:var(--radius-md);padding:28px;text-align:center;cursor:pointer;transition:all var(--tr);background:var(--gray-50)}
-.upload-zone:hover{border-color:var(--teal);background:var(--teal-light)}
-.upload-zone svg{width:32px;height:32px;margin:0 auto 10px;display:block}
-.upload-zone p{font-size:14px;color:var(--gray-600)}
-.upload-zone .link{color:var(--teal);text-decoration:underline;cursor:pointer}
-.btn-modelo{display:inline-flex;align-items:center;gap:6px;padding:9px 16px;background:none;border:1.5px solid var(--teal);border-radius:var(--radius-sm);color:var(--teal);font-size:13px;font-weight:500;cursor:pointer;font-family:var(--font-body);transition:all var(--tr);margin-top:10px}
-.btn-modelo:hover{background:var(--teal-light)}
+  /* ─── TYPE SELECTOR ─── */
+  .type-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+  .type-card {
+    border: 2px solid var(--fog);
+    border-radius: var(--radius);
+    padding: 20px 16px;
+    cursor: pointer;
+    transition: all .2s;
+    text-align: center;
+    background: #fff;
+  }
+  .type-card:hover { border-color: var(--green); }
+  .type-card.selected { border-color: var(--green); background: var(--green-light); }
+  .type-icon { font-size: 28px; margin-bottom: 8px; }
+  .type-name {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--navy);
+  }
+  .type-sub { font-size: 12px; color: var(--mist); margin-top: 3px; }
 
-/* SINDICATO INFO */
-.sind-info{background:var(--teal-light);border:1px solid var(--teal-mid);border-radius:var(--radius-md);padding:16px 20px;margin-top:12px;display:none}
-.sind-info.show{display:block}
-.sind-info h4{font-family:var(--font-head);font-size:13px;font-weight:700;color:var(--teal-dark);margin-bottom:4px}
-.sind-info p{font-size:12px;color:var(--teal-xdark)}
+  /* ─── PLAN CARDS ─── */
+  .plan-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+  .plan-card {
+    border: 2px solid var(--fog);
+    border-radius: var(--radius);
+    padding: 20px;
+    cursor: pointer;
+    transition: all .2s;
+    background: #fff;
+    position: relative;
+  }
+  .plan-card:hover { border-color: var(--green); }
+  .plan-card.selected { border-color: var(--green); background: var(--green-light); }
+  .plan-card.recommended::after {
+    content: 'Recomendado';
+    position: absolute;
+    top: -10px; left: 50%;
+    transform: translateX(-50%);
+    background: var(--green);
+    color: var(--navy);
+    font-size: 10px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 20px;
+    white-space: nowrap;
+  }
+  .plan-name {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--navy);
+    margin-bottom: 4px;
+  }
+  .plan-price {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--green-dark);
+    margin-bottom: 2px;
+  }
+  .plan-price span { font-size: 13px; font-weight: 400; color: var(--mist); }
+  .plan-features { margin-top: 12px; display: flex; flex-direction: column; gap: 5px; }
+  .plan-feat { font-size: 12px; color: var(--slate); display: flex; align-items: center; gap: 6px; }
+  .plan-feat::before { content: '✓'; color: var(--green); font-weight: 700; flex-shrink: 0; }
 
-/* CNPJ STATUS */
-.cnpj-status{font-size:12px;margin-top:-8px;margin-bottom:8px;display:none}
-.cnpj-status.ok{color:var(--teal)}.cnpj-status.err{color:var(--danger)}
+  /* ─── SUMMARY ─── */
+  .summary-block {
+    background: var(--white);
+    border: 1.5px solid var(--fog);
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 16px;
+  }
+  .summary-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 0;
+    font-size: 14px;
+  }
+  .summary-row:not(:last-child) { border-bottom: 1px solid var(--fog); }
+  .summary-row .label { color: var(--mist); }
+  .summary-row .value { font-weight: 500; color: var(--navy); text-align: right; }
+  .summary-total {
+    background: var(--green-light);
+    border: 2px solid var(--green);
+    border-radius: 12px;
+    padding: 16px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .summary-total .label {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--navy);
+  }
+  .summary-total .value {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 24px;
+    color: var(--green-dark);
+  }
 
-/* RESUMO */
-.resumo-row{display:flex;justify-content:space-between;align-items:flex-start;padding:9px 0;border-bottom:1px solid var(--gray-100);font-size:14px;gap:16px}
-.resumo-row:last-child{border-bottom:none}
-.resumo-row .rl{color:var(--gray-600);flex-shrink:0;min-width:130px}
-.resumo-row .rv{color:var(--gray-800);font-weight:500;text-align:right}
-.resumo-total{background:var(--teal-light);border-radius:var(--radius-md);padding:16px 20px;display:flex;justify-content:space-between;align-items:center;margin-top:16px}
-.resumo-total .label{font-size:14px;color:var(--teal-dark);font-weight:600}
-.resumo-total .valor{font-family:var(--font-head);font-size:26px;font-weight:700;color:var(--teal-xdark)}
-.resumo-sub{font-size:11px;color:var(--gray-400);text-align:right;margin-top:4px}
+  /* ─── TRANSMIT ─── */
+  .transmit-status {
+    text-align: center;
+    padding: 40px 20px;
+  }
+  .transmit-icon { font-size: 56px; margin-bottom: 16px; }
+  .transmit-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .transmit-sub { color: var(--mist); font-size: 14px; line-height: 1.6; }
+  .phone-preview {
+    background: var(--navy);
+    border-radius: 12px;
+    padding: 16px;
+    margin: 24px 0;
+    font-size: 13px;
+    color: #b2fce4;
+    line-height: 1.7;
+    font-family: 'DM Mono', 'Courier New', monospace;
+    text-align: left;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
 
-/* TELA AGUARDANDO */
-.ag-wrap{max-width:560px;margin:0 auto;padding:48px 24px;text-align:center}
-.prop-label{font-family:var(--font-head);font-size:11px;font-weight:700;letter-spacing:.14em;color:var(--gray-400);text-transform:uppercase;margin-bottom:6px}
-.prop-num{font-family:var(--font-head);font-size:30px;font-weight:700;color:var(--navy);margin-bottom:24px;letter-spacing:.04em}
-.status-badge{display:inline-flex;align-items:center;gap:8px;padding:10px 22px;border-radius:30px;font-size:14px;font-weight:600;margin-bottom:20px}
-.status-badge.aguardando{background:#FFF8E0;color:#854F0B;border:1.5px solid #FAC775}
-.status-badge.confirmado{background:#E1F5EE;color:var(--teal-dark);border:1.5px solid var(--teal-mid)}
-.status-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
-.status-dot.pulse{background:#EF9F27;animation:pulse 1.4s ease-in-out infinite}
-.status-dot.ok{background:var(--teal)}
-@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.8)}}
-.btn-pdf{display:inline-flex;align-items:center;gap:8px;padding:13px 24px;background:none;border:2px solid var(--navy);border-radius:var(--radius-md);color:var(--navy);font-family:var(--font-head);font-size:14px;font-weight:700;cursor:pointer;transition:all var(--tr);margin:20px auto 6px;text-decoration:none}
-.btn-pdf:hover{background:var(--navy);color:var(--white)}
-.btn-concluir{padding:16px 48px;background:var(--teal);border:none;border-radius:var(--radius-md);font-family:var(--font-head);font-size:16px;font-weight:700;color:var(--white);cursor:pointer;transition:all var(--tr);opacity:.35;pointer-events:none;margin-top:28px;display:block;width:100%}
-.btn-concluir.liberado{opacity:1;pointer-events:auto}
-.btn-concluir.liberado:hover{background:var(--teal-dark)}
-.teste-box{margin-top:32px;padding:16px;background:var(--gray-100);border-radius:var(--radius-md);font-size:12px;color:var(--gray-600)}
-.teste-box button{padding:8px 16px;background:var(--teal);color:white;border:none;border-radius:var(--radius-sm);cursor:pointer;font-size:12px;font-family:var(--font-body);margin-top:8px}
+  /* ─── CONCLUSION ─── */
+  .conclusion-hero {
+    text-align: center;
+    padding: 48px 20px;
+  }
+  .conclusion-check {
+    width: 80px; height: 80px;
+    background: var(--green);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 36px;
+    margin: 0 auto 24px;
+    box-shadow: 0 8px 32px rgba(0,196,140,0.35);
+  }
+  .conclusion-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--navy);
+    margin-bottom: 8px;
+  }
+  .conclusion-sub { color: var(--mist); font-size: 15px; line-height: 1.6; margin-bottom: 32px; }
 
-/* NAV */
-.nav-btns{display:flex;justify-content:space-between;align-items:center;margin-top:28px;gap:14px}
-.btn-voltar{padding:13px 24px;background:none;border:1.5px solid var(--gray-200);border-radius:var(--radius-md);font-family:var(--font-head);font-size:14px;font-weight:600;color:var(--gray-600);cursor:pointer;transition:all var(--tr)}
-.btn-voltar:hover{border-color:var(--gray-400)}
-.btn-primary,.btn-avancar{flex:1;max-width:280px;padding:14px 28px;background:var(--teal);border:none;border-radius:var(--radius-md);font-family:var(--font-head);font-size:15px;font-weight:700;color:var(--white);cursor:pointer;transition:all var(--tr);text-align:center}
-.btn-primary{max-width:100%;width:100%;margin-top:8px}
-.btn-avancar:hover,.btn-primary:hover{background:var(--teal-dark)}
-.btn-avancar:active,.btn-primary:active,.btn-transmitir:active{transform:scale(.98)}
-.btn-transmitir{flex:1;max-width:320px;padding:16px 32px;background:var(--navy);border:none;border-radius:var(--radius-md);font-family:var(--font-head);font-size:16px;font-weight:700;color:var(--white);cursor:pointer;transition:all var(--tr);display:flex;align-items:center;gap:10px;justify-content:center}
-.btn-transmitir:hover{background:#0c2820}
+  /* ─── MISC ─── */
+  .divider {
+    height: 1px;
+    background: var(--fog);
+    margin: 24px 0;
+  }
+  .alert {
+    border-radius: 10px;
+    padding: 12px 16px;
+    font-size: 13px;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .alert-info { background: #E8F4FD; color: #1565C0; border: 1px solid #BBDEFB; }
+  .alert-warn { background: #FFF8E1; color: #E65100; border: 1px solid #FFE082; }
+  .spinner {
+    width: 20px; height: 20px;
+    border: 2px solid rgba(0,0,0,0.1);
+    border-top-color: var(--green);
+    border-radius: 50%;
+    animation: spin .7s linear infinite;
+    display: inline-block;
+    flex-shrink: 0;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .loading-row {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 13px; color: var(--mist);
+  }
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+  .tag-green { background: var(--green-light); color: var(--green-dark); }
+  .tag-blue  { background: #E3F2FD; color: #1565C0; }
+  .period-toggle {
+    display: flex;
+    background: var(--white);
+    border: 1.5px solid var(--fog);
+    border-radius: 10px;
+    padding: 3px;
+    gap: 3px;
+    width: fit-content;
+    margin-bottom: 24px;
+  }
+  .period-btn {
+    padding: 8px 20px;
+    border-radius: 8px;
+    border: none;
+    background: none;
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    color: var(--mist);
+    transition: all .2s;
+  }
+  .period-btn.active { background: var(--green); color: var(--navy); }
+  .badge-anual {
+    font-size: 10px;
+    background: #FFF3E0;
+    color: #E65100;
+    padding: 2px 8px;
+    border-radius: 20px;
+    font-weight: 700;
+    margin-left: 6px;
+  }
+  .lives-input-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--white);
+    border: 1.5px solid var(--fog);
+    border-radius: 10px;
+    padding: 4px 4px 4px 16px;
+  }
+  .lives-input-row label { font-size: 14px; color: var(--slate); white-space: nowrap; flex: 1; }
+  .lives-input-row input {
+    width: 80px;
+    border: none;
+    background: none;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 700;
+    padding: 8px;
+    box-shadow: none;
+  }
+  .lives-input-row input:focus { box-shadow: none; }
+  .qty-btn {
+    width: 36px; height: 36px;
+    border-radius: 8px;
+    border: 1.5px solid var(--fog);
+    background: #fff;
+    font-size: 18px;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: all .2s;
+    flex-shrink: 0;
+    color: var(--slate);
+  }
+  .qty-btn:hover { border-color: var(--green); color: var(--green); background: var(--green-light); }
 
-
-/* PRODUTOS */
-.prod-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;margin-bottom:32px}
-.prod-card{background:var(--white);border:2px solid var(--gray-200);border-radius:var(--radius-lg);padding:24px 20px;cursor:pointer;transition:all var(--tr);position:relative;text-align:center}
-.prod-card.ativo:hover{border-color:var(--teal);box-shadow:var(--shadow-md);transform:translateY(-2px)}
-.prod-card.ativo.selected{border-color:var(--teal);background:linear-gradient(135deg,#F0FAF6,#E8F7F2);box-shadow:0 0 0 4px rgba(29,158,117,.10)}
-.prod-card.inativo{opacity:.45;cursor:not-allowed;filter:grayscale(.6)}
-.prod-icon{width:52px;height:52px;border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;margin:0 auto 14px}
-.prod-icon.teal{background:var(--teal-light)}
-.prod-icon.gray{background:var(--gray-100)}
-.prod-card h3{font-family:var(--font-head);font-size:15px;font-weight:700;color:var(--navy);margin-bottom:5px}
-.prod-card p{font-size:12px;color:var(--gray-600);line-height:1.5}
-.prod-badge-em-breve{position:absolute;top:12px;right:12px;background:var(--gray-200);color:var(--gray-600);font-size:10px;font-weight:700;padding:3px 8px;border-radius:20px;letter-spacing:.05em}
-.prod-badge-ativo{position:absolute;top:12px;right:12px;background:var(--teal-light);color:var(--teal-dark);font-size:10px;font-weight:700;padding:3px 8px;border-radius:20px;letter-spacing:.05em}
-.prod-check{position:absolute;top:12px;left:12px;width:22px;height:22px;border-radius:50%;background:var(--teal);display:none;align-items:center;justify-content:center}
-.prod-card.selected .prod-check{display:flex}
-.prod-check svg{width:12px;height:12px}
-
-/* CONCLUSÃO */
-.conclusao-wrap{max-width:520px;margin:0 auto;padding:60px 24px;text-align:center}
-.conclusao-icon{width:80px;height:80px;background:var(--teal-light);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 24px}
-.conclusao-icon svg{width:40px;height:40px}
-.conclusao-titulo{font-family:var(--font-head);font-size:26px;font-weight:700;color:var(--navy);margin-bottom:12px}
-.conclusao-texto{font-size:15px;color:var(--gray-600);line-height:1.7;margin-bottom:32px}
-.btn-painel{display:inline-flex;align-items:center;gap:10px;padding:16px 32px;background:var(--teal);border:none;border-radius:var(--radius-md);font-family:var(--font-head);font-size:15px;font-weight:700;color:var(--white);cursor:pointer;text-decoration:none;transition:all var(--tr);margin-bottom:16px}
-.btn-painel:hover{background:var(--teal-dark)}
-.btn-nova-contratacao{display:inline-flex;align-items:center;gap:8px;padding:12px 24px;background:none;border:1.5px solid var(--gray-200);border-radius:var(--radius-md);font-family:var(--font-head);font-size:14px;font-weight:600;color:var(--gray-600);cursor:pointer;transition:all var(--tr)}
-.btn-nova-contratacao:hover{border-color:var(--teal);color:var(--teal)}
-
-/* TOAST */
-.toast{position:fixed;bottom:28px;right:28px;background:var(--navy);color:var(--white);padding:14px 20px;border-radius:var(--radius-md);font-size:14px;font-weight:500;box-shadow:var(--shadow-md);z-index:9999;display:none;align-items:center;gap:10px;max-width:380px}
-.toast.show{display:flex;animation:slideIn .3s ease}
-.toast.success{background:var(--teal-dark)}.toast.error{background:#A32D2D}
-@keyframes slideIn{from{transform:translateY(20px);opacity:0}to{transform:translateY(0);opacity:1}}
-
-/* RESPONSIVE */
-@media(max-width:600px){
-  .app-header{padding:0 16px}
-  .main-content{padding:20px 16px 60px}
-  .form-card{padding:20px 16px}
-  .login-card{padding:36px 24px 32px}
-  .form-row.two,.form-row.three{grid-template-columns:1fr}
-  .nav-btns{flex-direction:column}
-  .btn-avancar,.btn-transmitir{max-width:100%;width:100%}
-  .btn-voltar{width:100%}
-  .pag-toggle,.mod-toggle{flex-direction:column}
-}
+  @media (max-width: 600px) {
+    .form-row { grid-template-columns: 1fr; }
+    .form-row.three { grid-template-columns: 1fr 1fr; }
+    .product-grid, .type-grid, .plan-grid { grid-template-columns: 1fr; }
+    .card { padding: 24px 20px; }
+    .login-card { padding: 36px 24px; }
+    .btn-actions { flex-direction: column-reverse; }
+    .btn-actions .btn { width: 100%; }
+    .progress-wrap { overflow-x: auto; }
+  }
 </style>
 </head>
 <body>
 
-<!-- LOGO TEMPLATES -->
-<template id="tpl-logo-login"><img src="data:image/webp;base64,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" alt="Welife" style="height:40px;width:auto;display:block;margin:0 auto 16px"></template>
-<template id="tpl-logo-header"><img src="data:image/webp;base64,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" alt="Welife" style="height:34px;width:auto;display:block"></template>
+<!-- HEADER -->
+<header class="header" id="app-header" style="display:none">
+  <div class="logo">We<span>Life</span></div>
+  <div class="header-user">
+    <span id="hdr-seller"></span>
+    <span class="badge" id="hdr-code"></span>
+    <button class="btn-logout" onclick="doLogout()">Sair</button>
+  </div>
+</header>
 
-<!-- ═══════════════════════════════════
-     PÁGINA 0 — LOGIN
-═══════════════════════════════════ -->
-<div id="page-login" class="page active">
-  <div class="login-wrap">
-    <div class="login-card">
-      <div id="slot-login-logo"></div>
-      <p style="text-align:center;font-size:11px;color:var(--gray-400);font-weight:600;letter-spacing:.1em;margin-bottom:28px">SISTEMA DE CONTRATAÇÃO</p>
-      <div class="login-error" id="login-error">Código ou senha incorretos. Tente novamente.</div>
-      <div class="form-group"><label>Código do vendedor</label>
-        <input type="text" id="login-codigo" placeholder="Ex: WL-001" autocomplete="off" oninput="this.value=this.value.toUpperCase()"></div>
-      <div class="form-group"><label>Senha</label>
-        <input type="password" id="login-senha" placeholder="Digite sua senha" onkeydown="if(event.key==='Enter')fazerLogin()"></div>
-      <button class="btn-primary" onclick="fazerLogin()">Entrar no sistema</button>
-      <p style="text-align:center;font-size:12px;color:var(--gray-400);margin-top:18px">Esqueceu sua senha? Contate o administrador.</p>
+<!-- PROGRESS -->
+<div class="progress-wrap" id="progress-bar" style="display:none">
+  <div class="step-tab" id="stab-1"><div class="num">1</div> Produto</div>
+  <div class="step-sep">›</div>
+  <div class="step-tab" id="stab-2"><div class="num">2</div> Tipo</div>
+  <div class="step-sep">›</div>
+  <div class="step-tab" id="stab-3"><div class="num">3</div> Dados</div>
+  <div class="step-sep">›</div>
+  <div class="step-tab" id="stab-4"><div class="num">4</div> Plano</div>
+  <div class="step-sep">›</div>
+  <div class="step-tab" id="stab-5"><div class="num">5</div> Resumo</div>
+  <div class="step-sep">›</div>
+  <div class="step-tab" id="stab-6"><div class="num">6</div> Transmitir</div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     SCREEN 0 — LOGIN
+════════════════════════════════════════ -->
+<div id="screen-login" class="screen active">
+  <div class="login-card">
+    <div class="login-logo">We<span>Life</span></div>
+    <p class="login-tagline">Portal do Vendedor — Contratação</p>
+    <div class="login-error" id="login-error">Código ou senha incorretos. Tente novamente.</div>
+    <div class="rows-gap">
+      <div class="form-group">
+        <label>Código do Vendedor</label>
+        <input type="text" id="inp-code" placeholder="Ex: WL-001" autocomplete="username"
+               oninput="this.value=this.value.toUpperCase()" onkeydown="loginKey(event)">
+      </div>
+      <div class="form-group">
+        <label>Senha</label>
+        <input type="password" id="inp-pass" placeholder="••••••••" autocomplete="current-password"
+               onkeydown="loginKey(event)">
+      </div>
+      <button class="btn btn-primary btn-full" onclick="doLogin()">Entrar</button>
     </div>
+    <p style="text-align:center;margin-top:20px;font-size:11px;color:var(--mist)">
+      Dúvidas? Fale com o suporte WeLife
+    </p>
   </div>
 </div>
 
-
-<!-- ═══════════════════════════════════
-     PÁGINA 0B — SELEÇÃO DE PRODUTO
-═══════════════════════════════════ -->
-<div id="page-produto" class="page">
-  <div class="app-header"><div class="logo-slot"></div>
-    <div class="vendedor-badge"><div class="avatar">VD</div>
-      <div><span class="nv">Vendedor</span> · <strong class="cv">WL-000</strong></div></div>
-    <button class="btn-sair" onclick="fazerLogout()">Sair</button></div>
-  <div class="main-content">
-    <p class="section-title">O que vamos contratar?</p>
-    <p class="section-sub">Selecione o produto para iniciar a contratação</p>
-    <div class="prod-grid">
-
-      <!-- SAÚDE PROTEGIDA — ATIVO -->
-      <div class="prod-card ativo" id="prod-saude" onclick="selecionarProduto('saude')">
-        <div class="prod-check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-        <span class="prod-badge-ativo">DISPONÍVEL</span>
-        <div class="prod-icon teal">
-          <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="#1D9E75" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M14 24S4 18 4 10a6 6 0 0110-4.47A6 6 0 0124 10c0 8-10 14-10 14z"/>
-            <path d="M14 10v5M11.5 12.5h5"/>
-          </svg>
+<!-- ═══════════════════════════════════════
+     SCREEN 1 — PRODUTO
+════════════════════════════════════════ -->
+<div id="screen-1" class="screen">
+  <div class="main">
+    <p class="screen-title">Selecione o Produto</p>
+    <p class="screen-sub">Escolha o produto que deseja contratar para o seu cliente.</p>
+    <div class="card">
+      <div class="product-grid">
+        <div class="product-card" id="prod-saude" onclick="selectProduct('saude')">
+          <div class="product-tag active">● Disponível</div>
+          <div class="product-icon">🛡️</div>
+          <div class="product-name">Saúde Protegida</div>
+          <div class="product-desc">Plano de saúde coletivo com coberturas completas e rede credenciada ampla.</div>
         </div>
-        <h3>Saúde Protegida</h3>
-        <p>Telemedicina, consultas presenciais, exames e R$100/mês em farmácias</p>
-      </div>
-
-      <!-- ODONTO — EM BREVE -->
-      <div class="prod-card inativo">
-        <span class="prod-badge-em-breve">EM BREVE</span>
-        <div class="prod-icon gray">
-          <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="#8DA89E" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M8 4c-2 0-4 1.5-4 4 0 5 3 9 10 16 7-7 10-11 10-16 0-2.5-2-4-4-4-1.5 0-3 .8-4 2C15 4.8 13.5 4 12 4z"/>
-            <path d="M11 13l2 2 4-4"/>
-          </svg>
+        <div class="product-card disabled">
+          <div class="product-tag soon">Em breve</div>
+          <div class="product-icon">🦷</div>
+          <div class="product-name">Dental Care</div>
+          <div class="product-desc">Plano odontológico individual e coletivo. Em desenvolvimento.</div>
         </div>
-        <h3>Plano Odontológico</h3>
-        <p>Consultas, extrações, tratamentos e emergências odontológicas</p>
-      </div>
-
-      <!-- SEGURO DE VIDA — EM BREVE -->
-      <div class="prod-card inativo">
-        <span class="prod-badge-em-breve">EM BREVE</span>
-        <div class="prod-icon gray">
-          <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="#8DA89E" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M14 3L4 7v7c0 6 4.7 10.7 10 12 5.3-1.3 10-6 10-12V7L14 3z"/>
-            <path d="M10 14l3 3 5-5"/>
-          </svg>
+        <div class="product-card disabled">
+          <div class="product-tag soon">Em breve</div>
+          <div class="product-icon">💊</div>
+          <div class="product-name">FarmaPlus</div>
+          <div class="product-desc">Descontos em medicamentos e farmácias parceiras.</div>
         </div>
-        <h3>Seguro de Vida</h3>
-        <p>Proteção financeira para você e sua família nos momentos difíceis</p>
-      </div>
-
-      <!-- SEGURO RESIDENCIAL — EM BREVE -->
-      <div class="prod-card inativo">
-        <span class="prod-badge-em-breve">EM BREVE</span>
-        <div class="prod-icon gray">
-          <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="#8DA89E" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M3 12L14 3l11 9v13H3V12z"/>
-            <rect x="10" y="17" width="8" height="7" rx="1"/>
-          </svg>
-        </div>
-        <h3>Seguro Residencial</h3>
-        <p>Proteção completa para sua casa contra roubos, incêndios e danos</p>
-      </div>
-
-      <!-- SEGURO CELULAR — EM BREVE -->
-      <div class="prod-card inativo">
-        <span class="prod-badge-em-breve">EM BREVE</span>
-        <div class="prod-icon gray">
-          <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="#8DA89E" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="7" y="2" width="14" height="24" rx="3"/>
-            <circle cx="14" cy="21" r="1"/>
-          </svg>
-        </div>
-        <h3>Seguro Celular</h3>
-        <p>Proteção contra roubo, furto, quebra e danos acidentais do seu aparelho</p>
-      </div>
-
-    </div>
-    <div style="text-align:right">
-      <button class="btn-avancar" id="btn-avancar-produto" onclick="irParaTipo()" style="opacity:.4;cursor:not-allowed" disabled>Continuar →</button>
-    </div>
-  </div>
-</div>
-
-<!-- ═══════════════════════════════════
-     PÁGINA 1 — TIPO
-═══════════════════════════════════ -->
-<div id="page-tipo" class="page">
-  <div class="app-header"><div class="logo-slot"></div>
-    <div class="vendedor-badge"><div class="avatar">VD</div>
-      <div><span class="nv">Vendedor</span> · <strong class="cv">WL-000</strong></div></div>
-    <button class="btn-sair" onclick="fazerLogout()">Sair</button></div>
-  <div class="main-content">
-    <p class="section-title">Nova contratação</p>
-    <p class="section-sub">Selecione o tipo para começar</p>
-    <div class="tipo-grid">
-      <div class="tipo-card" onclick="selecionarTipo('pf')" id="tipo-pf">
-        <div class="check-badge"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-        <div class="tipo-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#1D9E75" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg></div>
-        <h3>Pessoa Física</h3><p>Individual ou familiar. Planos Essencial, Especial e Plus.</p></div>
-      <div class="tipo-card" onclick="selecionarTipo('pj')" id="tipo-pj">
-        <div class="check-badge"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-        <div class="tipo-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#1D9E75" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="14" rx="2"/><path d="M8 7V5a2 2 0 014 0v2"/><path d="M12 12v4m-2-2h4"/></svg></div>
-        <h3>Pessoa Jurídica</h3><p>Estipulante + beneficiários. Plano único ou opcional por beneficiário.</p></div>
-      <div class="tipo-card" onclick="selecionarTipo('sind')" id="tipo-sind">
-        <div class="check-badge"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-        <div class="tipo-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#1D9E75" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg></div>
-        <h3>Sindicato / Associação</h3><p>Valor configurado pelo administrador por sindicato/associação.</p></div>
-    </div>
-    <div style="text-align:right">
-      <button class="btn-avancar" id="btn-avancar-tipo" onclick="irParaFormulario()" style="opacity:.4;cursor:not-allowed" disabled>Continuar →</button></div>
-  </div>
-</div>
-
-<!-- ═══════════════════════════════════
-     PÁGINA 2A — PESSOA FÍSICA
-═══════════════════════════════════ -->
-<div id="page-pf" class="page">
-  <div class="app-header"><div class="logo-slot"></div>
-    <div class="vendedor-badge"><div class="avatar">VD</div><div><span class="nv">Vendedor</span> · <strong class="cv">WL</strong></div></div>
-    <button class="btn-sair" onclick="fazerLogout()">Sair</button></div>
-  <div class="main-content">
-    <div class="stepper">
-      <div class="step-item"><div class="step-circle done">✓</div><span class="step-label done">Tipo</span></div><div class="step-line done"></div>
-      <div class="step-item"><div class="step-circle active">2</div><span class="step-label active">Dados</span></div><div class="step-line"></div>
-      <div class="step-item"><div class="step-circle">3</div><span class="step-label">Plano</span></div><div class="step-line"></div>
-      <div class="step-item"><div class="step-circle">4</div><span class="step-label">Resumo</span></div>
-    </div>
-    <p class="section-title">Dados do titular</p>
-    <p class="section-sub">Pessoa Física</p>
-
-    <div class="form-card">
-      <div class="form-card-title">Modalidade</div>
-      <div class="mod-toggle">
-        <button class="mod-btn selected" id="pf-mod-individual" onclick="setPFMod('individual')">Individual<span class="mod-desc">Apenas o titular</span></button>
-        <button class="mod-btn" id="pf-mod-familiar" onclick="setPFMod('familiar')">Familiar<span class="mod-desc">Titular + dependentes</span></button>
-      </div>
-    </div>
-
-    <div class="form-card">
-      <div class="form-card-title">Dados do titular <span class="tag">Obrigatório</span></div>
-      <div class="form-row two">
-        <div class="field"><label>Nome completo <span class="req">*</span></label><input type="text" id="pf-nome" placeholder="Nome completo"><span class="err-msg" id="e-pf-nome">Campo obrigatório</span></div>
-        <div class="field"><label>CPF <span class="req">*</span></label><input type="text" id="pf-cpf" placeholder="000.000.000-00" oninput="mascaraCPF(this)"><span class="err-msg" id="e-pf-cpf">Campo obrigatório</span></div>
-      </div>
-      <div class="form-row two">
-        <div class="field"><label>Data de nascimento <span class="req">*</span></label><input type="date" id="pf-nasc"><span class="err-msg" id="e-pf-nasc">Campo obrigatório</span></div>
-        <div class="field"><label>Telefone / WhatsApp <span class="req">*</span></label><input type="text" id="pf-tel" placeholder="(11) 99999-9999" oninput="mascaraTel(this)"><span class="err-msg" id="e-pf-tel">Campo obrigatório</span></div>
-      </div>
-      <div class="form-row full">
-        <div class="field"><label>E-mail <span class="req">*</span></label><input type="email" id="pf-email" placeholder="email@exemplo.com"><span class="err-msg" id="e-pf-email">Campo obrigatório</span></div>
-      </div>
-    </div>
-    <div class="form-card">
-      <div class="form-card-title">Endereço <span class="tag opcional">Opcional</span></div>
-      <div class="form-row two">
-        <div class="field"><label>CEP</label><input type="text" id="pf-cep" placeholder="00000-000" oninput="mascaraCEP(this)" onblur="buscarCEP(this.value,'pf')"></div>
-        <div class="field"><label>Rua</label><input type="text" id="pf-rua" placeholder="Rua, Avenida..."></div>
-      </div>
-      <div class="form-row three">
-        <div class="field"><label>Número</label><input type="text" id="pf-num" placeholder="Nº"></div>
-        <div class="field"><label>Complemento</label><input type="text" id="pf-comp" placeholder="Apto..."></div>
-        <div class="field"><label>Bairro</label><input type="text" id="pf-bairro" placeholder="Bairro"></div>
-      </div>
-      <div class="form-row two">
-        <div class="field"><label>Cidade</label><input type="text" id="pf-cidade" placeholder="Cidade"></div>
-        <div class="field"><label>Estado</label><select id="pf-uf"><option value="">UF</option><option>AC</option><option>AL</option><option>AM</option><option>AP</option><option>BA</option><option>CE</option><option>DF</option><option>ES</option><option>GO</option><option>MA</option><option>MG</option><option>MS</option><option>MT</option><option>PA</option><option>PB</option><option>PE</option><option>PI</option><option>PR</option><option>RJ</option><option>RN</option><option>RO</option><option>RR</option><option>RS</option><option>SC</option><option>SE</option><option>SP</option><option>TO</option></select></div>
-      </div>
-    </div>
-    <div class="form-card">
-      <div class="form-card-title">Redes sociais</div>
-      <div class="form-row two">
-        <div class="field"><label>Facebook</label><input type="text" id="pf-fb" placeholder="facebook.com/perfil"></div>
-        <div class="field"><label>Instagram</label><input type="text" id="pf-ig" placeholder="@usuario"></div>
-      </div>
-    </div>
-
-    <div id="bloco-deps" style="display:none">
-      <p class="section-title" style="font-size:17px;margin:8px 0 16px">Dependentes</p>
-      <div id="lista-deps"></div>
-      <button class="btn-add" onclick="adicionarDep()">
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="#1D9E75" stroke-width="1.5"/><path d="M8 5v6M5 8h6" stroke="#1D9E75" stroke-width="1.5" stroke-linecap="round"/></svg>
-        Adicionar dependente</button>
-    </div>
-    <div class="nav-btns">
-      <button class="btn-voltar" onclick="irPara('page-tipo')">← Voltar</button>
-      <button class="btn-avancar" onclick="validarPF()">Próximo: Plano →</button>
-    </div>
-  </div>
-</div>
-
-<!-- ═══════════════════════════════════
-     PÁGINA 2B — PJ ESTIPULANTE
-═══════════════════════════════════ -->
-<div id="page-pj" class="page">
-  <div class="app-header"><div class="logo-slot"></div>
-    <div class="vendedor-badge"><div class="avatar">VD</div><div><span class="nv">Vendedor</span></div></div>
-    <button class="btn-sair" onclick="fazerLogout()">Sair</button></div>
-  <div class="main-content">
-    <div class="stepper">
-      <div class="step-item"><div class="step-circle done">✓</div><span class="step-label done">Tipo</span></div><div class="step-line done"></div>
-      <div class="step-item"><div class="step-circle active">2</div><span class="step-label active">Estipulante</span></div><div class="step-line"></div>
-      <div class="step-item"><div class="step-circle">3</div><span class="step-label">Beneficiários</span></div><div class="step-line"></div>
-      <div class="step-item"><div class="step-circle">4</div><span class="step-label">Resumo</span></div>
-    </div>
-    <p class="section-title">Dados do estipulante</p><p class="section-sub">Pessoa Jurídica — empresa contratante</p>
-    <div class="form-card">
-      <div class="form-card-title">Empresa <span class="tag">Obrigatório</span></div>
-      <div id="pj-cnpj-status" class="cnpj-status"></div>
-      <div class="form-row two">
-        <div class="field"><label>CNPJ <span class="req">*</span></label><input type="text" id="pj-cnpj" placeholder="00.000.000/0001-00" oninput="mascaraCNPJ(this)" onblur="buscarCNPJ(this.value,'pj')"><span class="err-msg" id="e-pj-cnpj">Campo obrigatório</span></div>
-        <div class="field"><label>Razão social <span class="req">*</span></label><input type="text" id="pj-razao" placeholder="Razão Social Ltda."><span class="err-msg" id="e-pj-razao">Campo obrigatório</span></div>
-      </div>
-      <div class="form-row two">
-        <div class="field"><label>Nome fantasia</label><input type="text" id="pj-fantasia" placeholder="Nome fantasia"></div>
-        <div class="field"><label>CPF do responsável <span class="req">*</span></label><input type="text" id="pj-cpf-resp" placeholder="000.000.000-00" oninput="mascaraCPF(this)"><span class="err-msg" id="e-pj-cpf-resp">Campo obrigatório</span></div>
-      </div>
-      <div class="form-row two">
-        <div class="field"><label>Telefone <span class="req">*</span></label><input type="text" id="pj-tel" placeholder="(11) 3333-4444" oninput="mascaraTel(this)"><span class="err-msg" id="e-pj-tel">Campo obrigatório</span></div>
-        <div class="field"><label>E-mail <span class="req">*</span></label><input type="email" id="pj-email" placeholder="contato@empresa.com"><span class="err-msg" id="e-pj-email">Campo obrigatório</span></div>
-      </div>
-    </div>
-    <div class="form-card">
-      <div class="form-card-title">Endereço <span class="tag">Obrigatório</span></div>
-      <div class="form-row two">
-        <div class="field"><label>CEP <span class="req">*</span></label><input type="text" id="pj-cep" placeholder="00000-000" oninput="mascaraCEP(this)" onblur="buscarCEP(this.value,'pj')"><span class="err-msg" id="e-pj-cep">Campo obrigatório</span></div>
-        <div class="field"><label>Rua <span class="req">*</span></label><input type="text" id="pj-rua" placeholder="Rua, Avenida..."><span class="err-msg" id="e-pj-rua">Campo obrigatório</span></div>
-      </div>
-      <div class="form-row three">
-        <div class="field"><label>Número</label><input type="text" id="pj-num" placeholder="Nº"></div>
-        <div class="field"><label>Complemento</label><input type="text" id="pj-comp" placeholder="Sala, Andar..."></div>
-        <div class="field"><label>Bairro</label><input type="text" id="pj-bairro" placeholder="Bairro"></div>
-      </div>
-      <div class="form-row two">
-        <div class="field"><label>Cidade</label><input type="text" id="pj-cidade" placeholder="Cidade"></div>
-        <div class="field"><label>Estado</label><select id="pj-uf"><option value="">UF</option><option>AC</option><option>AL</option><option>AM</option><option>AP</option><option>BA</option><option>CE</option><option>DF</option><option>ES</option><option>GO</option><option>MA</option><option>MG</option><option>MS</option><option>MT</option><option>PA</option><option>PB</option><option>PE</option><option>PI</option><option>PR</option><option>RJ</option><option>RN</option><option>RO</option><option>RR</option><option>RS</option><option>SC</option><option>SE</option><option>SP</option><option>TO</option></select></div>
-      </div>
-    </div>
-    <div class="nav-btns">
-      <button class="btn-voltar" onclick="irPara('page-tipo')">← Voltar</button>
-      <button class="btn-avancar" onclick="validarPJ()">Próximo: Beneficiários →</button>
-    </div>
-  </div>
-</div>
-
-<!-- ═══════════════════════════════════
-     PÁGINA 2B-2 — BENEFICIÁRIOS PJ
-═══════════════════════════════════ -->
-<div id="page-pj-ben" class="page">
-  <div class="app-header"><div class="logo-slot"></div>
-    <div class="vendedor-badge"><div class="avatar">VD</div><div><span class="nv">Vendedor</span></div></div>
-    <button class="btn-sair" onclick="fazerLogout()">Sair</button></div>
-  <div class="main-content">
-    <div class="stepper">
-      <div class="step-item"><div class="step-circle done">✓</div><span class="step-label done">Tipo</span></div><div class="step-line done"></div>
-      <div class="step-item"><div class="step-circle done">✓</div><span class="step-label done">Estipulante</span></div><div class="step-line done"></div>
-      <div class="step-item"><div class="step-circle active">3</div><span class="step-label active">Beneficiários</span></div><div class="step-line"></div>
-      <div class="step-item"><div class="step-circle">4</div><span class="step-label">Resumo</span></div>
-    </div>
-    <p class="section-title">Beneficiários</p><p class="section-sub">Cadastre manualmente ou via upload de planilha Excel</p>
-
-    <div class="form-card">
-      <div class="form-card-title">Modalidade de plano</div>
-      <div class="mod-toggle">
-        <button class="mod-btn selected" id="pj-mod-unico" onclick="setPJMod('unico')">Plano único<span class="mod-desc">Todos no mesmo plano</span></button>
-        <button class="mod-btn" id="pj-mod-opcional" onclick="setPJMod('opcional')">Opcional<span class="mod-desc">Cada um escolhe o seu</span></button>
-      </div>
-      <div id="bloco-plano-unico">
-        <p style="font-size:12px;color:var(--gray-600);margin-bottom:12px;font-weight:600;text-transform:uppercase;letter-spacing:.04em">Plano único para todos os beneficiários</p>
-        <div class="planos-grid">
-          <div class="plano-card" id="pu-essencial" onclick="selecionarPlanoGrid('pu','essencial',19.90,this)"><div class="plano-nome">Essencial</div><div class="plano-preco">R$ 19,90<span>/mês·vida</span></div><div class="plano-desc">Telemedicina ilimitada</div></div>
-          <div class="plano-card popular" id="pu-especial" onclick="selecionarPlanoGrid('pu','especial',29.90,this)"><div class="plano-badge">MAIS POPULAR</div><div class="plano-nome">Especial</div><div class="plano-preco">R$ 29,90<span>/mês·vida</span></div><div class="plano-desc">+ Consultas presenciais</div></div>
-          <div class="plano-card" id="pu-plus" onclick="selecionarPlanoGrid('pu','plus',49.90,this)"><div class="plano-nome">Plus</div><div class="plano-preco">R$ 49,90<span>/mês·vida</span></div><div class="plano-desc">+ Exames + R$100 farmácia</div></div>
-        </div>
-        <span class="err-msg" id="e-pu" style="margin-top:8px">Selecione um plano</span>
-      </div>
-    </div>
-
-    <div class="form-card">
-      <div class="form-card-title">Upload de planilha <span class="tag opcional">Recomendado</span></div>
-      <div class="upload-zone" onclick="document.getElementById('file-input').click()">
-        <svg viewBox="0 0 32 32" fill="none"><path d="M10 22l6-6 6 6M16 16v12" stroke="#1D9E75" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M26 22.6A6 6 0 0020 10h-1.5A9 9 0 106 21.4" stroke="#1D9E75" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        <p>Arraste a planilha aqui ou <span class="link">clique para selecionar</span></p>
-        <p style="font-size:12px;color:var(--gray-400);margin-top:4px">Formato .xlsx ou .csv</p>
-        <input type="file" id="file-input" accept=".xlsx,.csv" style="display:none" onchange="processarPlanilha(this)">
-      </div>
-      <button class="btn-modelo" onclick="baixarModelo()">
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1v8M4 6l3 3 3-3M2 11h10" stroke="#1D9E75" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Baixar planilha modelo</button>
-    </div>
-
-    <div class="form-card">
-      <div class="form-card-title">Beneficiários cadastrados</div>
-      <div id="lista-ben-pj"></div>
-      <button class="btn-add" onclick="adicionarBenPJ()">
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="#1D9E75" stroke-width="1.5"/><path d="M8 5v6M5 8h6" stroke="#1D9E75" stroke-width="1.5" stroke-linecap="round"/></svg>
-        Adicionar beneficiário manualmente</button>
-    </div>
-    <div class="nav-btns">
-      <button class="btn-voltar" onclick="irPara('page-pj')">← Voltar</button>
-      <button class="btn-avancar" onclick="irParaResumoPJ()">Próximo: Resumo →</button>
-    </div>
-  </div>
-</div>
-
-<!-- ═══════════════════════════════════
-     PÁGINA 2C — SINDICATO
-═══════════════════════════════════ -->
-<div id="page-sind" class="page">
-  <div class="app-header"><div class="logo-slot"></div>
-    <div class="vendedor-badge"><div class="avatar">VD</div><div><span class="nv">Vendedor</span></div></div>
-    <button class="btn-sair" onclick="fazerLogout()">Sair</button></div>
-  <div class="main-content">
-    <div class="stepper">
-      <div class="step-item"><div class="step-circle done">✓</div><span class="step-label done">Tipo</span></div><div class="step-line done"></div>
-      <div class="step-item"><div class="step-circle active">2</div><span class="step-label active">Sindicato</span></div><div class="step-line"></div>
-      <div class="step-item"><div class="step-circle">3</div><span class="step-label">Contratante</span></div><div class="step-line"></div>
-      <div class="step-item"><div class="step-circle">4</div><span class="step-label">Plano</span></div><div class="step-line"></div>
-      <div class="step-item"><div class="step-circle">5</div><span class="step-label">Resumo</span></div>
-    </div>
-    <p class="section-title">Sindicato / Associação</p><p class="section-sub">Selecione o sindicato e o tipo do contratante</p>
-    <div class="form-card">
-      <div class="form-card-title">Sindicato <span class="tag">Obrigatório</span></div>
-      <div class="field" style="margin-bottom:0">
-        <label>Selecione o sindicato <span class="req">*</span></label>
-        <select id="sind-select" onchange="sindicatoSelecionado(this.value)">
-          <option value="">— Selecione —</option>
-          <option value="sind1">Sindicato dos Metalúrgicos de SP</option>
-          <option value="sind2">Sindicato dos Comerciários do ABC</option>
-          <option value="sind3">Associação dos Servidores Municipais</option>
-        </select>
-        <span class="err-msg" id="e-sind-select">Selecione um sindicato</span>
-      </div>
-      <div class="sind-info" id="sind-info">
-        <h4 id="sind-nome">—</h4><p id="sind-detalhe">—</p></div>
-    </div>
-    <div class="form-card">
-      <div class="form-card-title">Tipo do contratante <span class="tag">Obrigatório</span></div>
-      <div class="mod-toggle" style="margin-bottom:0">
-        <button class="mod-btn selected" id="sind-mod-pf" onclick="setSindMod('pf')">Pessoa Física<span class="mod-desc">Associado individual</span></button>
-        <button class="mod-btn" id="sind-mod-pj" onclick="setSindMod('pj')">Pessoa Jurídica<span class="mod-desc">Empresa associada</span></button>
-      </div>
-    </div>
-    <div class="nav-btns">
-      <button class="btn-voltar" onclick="irPara('page-tipo')">← Voltar</button>
-      <button class="btn-avancar" onclick="validarSindStep1()">Continuar →</button>
-    </div>
-  </div>
-</div>
-
-<!-- ═══════════════════════════════════
-     PÁGINA 2C-2 — SINDICATO / CONTRATANTE PF
-═══════════════════════════════════ -->
-<div id="page-sind-pf" class="page">
-  <div class="app-header"><div class="logo-slot"></div>
-    <div class="vendedor-badge"><div class="avatar">VD</div><div><span class="nv">Vendedor</span></div></div>
-    <button class="btn-sair" onclick="fazerLogout()">Sair</button></div>
-  <div class="main-content">
-    <div class="stepper">
-      <div class="step-item"><div class="step-circle done">✓</div><span class="step-label done">Tipo</span></div><div class="step-line done"></div>
-      <div class="step-item"><div class="step-circle done">✓</div><span class="step-label done">Sindicato</span></div><div class="step-line done"></div>
-      <div class="step-item"><div class="step-circle active">3</div><span class="step-label active">Contratante</span></div><div class="step-line"></div>
-      <div class="step-item"><div class="step-circle">4</div><span class="step-label">Plano</span></div><div class="step-line"></div>
-      <div class="step-item"><div class="step-circle">5</div><span class="step-label">Resumo</span></div>
-    </div>
-    <p class="section-title">Dados do contratante</p><p class="section-sub">Pessoa Física — via sindicato</p>
-
-    <div class="form-card">
-      <div class="form-card-title">Modalidade</div>
-      <div class="mod-toggle">
-        <button class="mod-btn selected" id="spf-mod-individual" onclick="setSPFMod('individual')">Individual<span class="mod-desc">Apenas o titular</span></button>
-        <button class="mod-btn" id="spf-mod-familiar" onclick="setSPFMod('familiar')">Familiar<span class="mod-desc">Titular + dependentes</span></button>
-      </div>
-    </div>
-
-    <div class="form-card">
-      <div class="form-card-title">Dados do titular <span class="tag">Obrigatório</span></div>
-      <div class="form-row two">
-        <div class="field"><label>Nome completo <span class="req">*</span></label><input type="text" id="spf-nome" placeholder="Nome completo"><span class="err-msg" id="e-spf-nome">Campo obrigatório</span></div>
-        <div class="field"><label>CPF <span class="req">*</span></label><input type="text" id="spf-cpf" placeholder="000.000.000-00" oninput="mascaraCPF(this)"><span class="err-msg" id="e-spf-cpf">Campo obrigatório</span></div>
-      </div>
-      <div class="form-row two">
-        <div class="field"><label>Data de nascimento <span class="req">*</span></label><input type="date" id="spf-nasc"><span class="err-msg" id="e-spf-nasc">Campo obrigatório</span></div>
-        <div class="field"><label>Telefone / WhatsApp <span class="req">*</span></label><input type="text" id="spf-tel" placeholder="(11) 99999-9999" oninput="mascaraTel(this)"><span class="err-msg" id="e-spf-tel">Campo obrigatório</span></div>
-      </div>
-      <div class="form-row full">
-        <div class="field"><label>E-mail <span class="req">*</span></label><input type="email" id="spf-email" placeholder="email@exemplo.com"><span class="err-msg" id="e-spf-email">Campo obrigatório</span></div>
-      </div>
-      <div class="form-row two">
-        <div class="field"><label>Facebook</label><input type="text" id="spf-fb" placeholder="facebook.com/perfil"></div>
-        <div class="field"><label>Instagram</label><input type="text" id="spf-ig" placeholder="@usuario"></div>
-      </div>
-    </div>
-
-    <div id="bloco-spf-deps" style="display:none">
-      <p class="section-title" style="font-size:17px;margin:8px 0 16px">Dependentes</p>
-      <div id="lista-spf-deps"></div>
-      <button class="btn-add" onclick="adicionarDepSind()">
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="#1D9E75" stroke-width="1.5"/><path d="M8 5v6M5 8h6" stroke="#1D9E75" stroke-width="1.5" stroke-linecap="round"/></svg>
-        Adicionar dependente</button>
-    </div>
-    <div class="nav-btns">
-      <button class="btn-voltar" onclick="irPara('page-sind')">← Voltar</button>
-      <button class="btn-avancar" onclick="validarSindPF()">Próximo: Plano →</button>
-    </div>
-  </div>
-</div>
-
-<!-- ═══════════════════════════════════
-     PÁGINA 2C-3 — SINDICATO / CONTRATANTE PJ
-═══════════════════════════════════ -->
-<div id="page-sind-pj" class="page">
-  <div class="app-header"><div class="logo-slot"></div>
-    <div class="vendedor-badge"><div class="avatar">VD</div><div><span class="nv">Vendedor</span></div></div>
-    <button class="btn-sair" onclick="fazerLogout()">Sair</button></div>
-  <div class="main-content">
-    <div class="stepper">
-      <div class="step-item"><div class="step-circle done">✓</div><span class="step-label done">Tipo</span></div><div class="step-line done"></div>
-      <div class="step-item"><div class="step-circle done">✓</div><span class="step-label done">Sindicato</span></div><div class="step-line done"></div>
-      <div class="step-item"><div class="step-circle active">3</div><span class="step-label active">Subestipulante</span></div><div class="step-line"></div>
-      <div class="step-item"><div class="step-circle">4</div><span class="step-label">Beneficiários</span></div><div class="step-line"></div>
-      <div class="step-item"><div class="step-circle">5</div><span class="step-label">Resumo</span></div>
-    </div>
-    <p class="section-title">Empresa subestipulante</p>
-    <p class="section-sub">Sindicato = estipulante · CNPJ abaixo = subestipulante</p>
-    <div class="form-card">
-      <div class="form-card-title">Dados da empresa <span class="tag">Obrigatório</span></div>
-      <div id="spj-cnpj-status" class="cnpj-status"></div>
-      <div class="form-row two">
-        <div class="field"><label>CNPJ <span class="req">*</span></label><input type="text" id="spj-cnpj" placeholder="00.000.000/0001-00" oninput="mascaraCNPJ(this)" onblur="buscarCNPJ(this.value,'spj')"><span class="err-msg" id="e-spj-cnpj">Campo obrigatório</span></div>
-        <div class="field"><label>Razão social <span class="req">*</span></label><input type="text" id="spj-razao" placeholder="Razão Social Ltda."><span class="err-msg" id="e-spj-razao">Campo obrigatório</span></div>
-      </div>
-      <div class="form-row two">
-        <div class="field"><label>Nome fantasia</label><input type="text" id="spj-fantasia" placeholder="Nome fantasia"></div>
-        <div class="field"><label>CPF do responsável <span class="req">*</span></label><input type="text" id="spj-cpf-resp" placeholder="000.000.000-00" oninput="mascaraCPF(this)"><span class="err-msg" id="e-spj-cpf-resp">Campo obrigatório</span></div>
-      </div>
-      <div class="form-row two">
-        <div class="field"><label>Telefone <span class="req">*</span></label><input type="text" id="spj-tel" placeholder="(11) 3333-4444" oninput="mascaraTel(this)"><span class="err-msg" id="e-spj-tel">Campo obrigatório</span></div>
-        <div class="field"><label>E-mail <span class="req">*</span></label><input type="email" id="spj-email" placeholder="contato@empresa.com"><span class="err-msg" id="e-spj-email">Campo obrigatório</span></div>
-      </div>
-    </div>
-    <div class="form-card">
-      <div class="form-card-title">Beneficiários</div>
-      <div class="mod-toggle">
-        <button class="mod-btn selected" id="spj-mod-unico" onclick="setSPJMod('unico')">Plano único<span class="mod-desc">Todos no mesmo plano</span></button>
-        <button class="mod-btn" id="spj-mod-opcional" onclick="setSPJMod('opcional')">Opcional<span class="mod-desc">Cada um escolhe</span></button>
-      </div>
-      <div id="bloco-spj-plano-unico">
-        <p style="font-size:12px;color:var(--gray-600);margin-bottom:12px;font-weight:600;text-transform:uppercase;letter-spacing:.04em">Plano único</p>
-        <div class="planos-grid">
-          <div class="plano-card" id="spu-essencial" onclick="selecionarPlanoGrid('spu','essencial',19.90,this)"><div class="plano-nome">Essencial</div><div class="plano-preco">R$ 19,90<span>/mês·vida</span></div><div class="plano-desc">Telemedicina ilimitada</div></div>
-          <div class="plano-card popular" id="spu-especial" onclick="selecionarPlanoGrid('spu','especial',29.90,this)"><div class="plano-badge">MAIS POPULAR</div><div class="plano-nome">Especial</div><div class="plano-preco">R$ 29,90<span>/mês·vida</span></div><div class="plano-desc">+ Consultas presenciais</div></div>
-          <div class="plano-card" id="spu-plus" onclick="selecionarPlanoGrid('spu','plus',49.90,this)"><div class="plano-nome">Plus</div><div class="plano-preco">R$ 49,90<span>/mês·vida</span></div><div class="plano-desc">+ Exames + R$100 farmácia</div></div>
-        </div>
-      </div>
-      <div id="lista-ben-spj" style="margin-top:16px"></div>
-      <button class="btn-add" onclick="adicionarBenSPJ()" style="margin-top:8px">
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="#1D9E75" stroke-width="1.5"/><path d="M8 5v6M5 8h6" stroke="#1D9E75" stroke-width="1.5" stroke-linecap="round"/></svg>
-        Adicionar beneficiário</button>
-    </div>
-    <div class="nav-btns">
-      <button class="btn-voltar" onclick="irPara('page-sind')">← Voltar</button>
-      <button class="btn-avancar" onclick="irParaResumoPJ('sind')">Próximo: Resumo →</button>
-    </div>
-  </div>
-</div>
-
-<!-- ═══════════════════════════════════
-     PÁGINA 3 — PLANO (PF + SIND-PF)
-═══════════════════════════════════ -->
-<div id="page-plano" class="page">
-  <div class="app-header"><div class="logo-slot"></div>
-    <div class="vendedor-badge"><div class="avatar">VD</div><div><span class="nv">Vendedor</span></div></div>
-    <button class="btn-sair" onclick="fazerLogout()">Sair</button></div>
-  <div class="main-content">
-    <p class="section-title">Escolha do plano</p><p class="section-sub">Selecione o plano e a forma de pagamento</p>
-    <div class="form-card">
-      <div class="form-card-title">Plano</div>
-      <div class="planos-grid">
-        <div class="plano-card" id="pl-essencial" onclick="selecionarPlanoGrid('pl','essencial',19.90,this)"><div class="plano-nome">Essencial</div><div class="plano-preco">R$ 19,90<span>/mês·vida</span></div><div class="plano-desc">Telemedicina ilimitada</div></div>
-        <div class="plano-card popular" id="pl-especial" onclick="selecionarPlanoGrid('pl','especial',29.90,this)"><div class="plano-badge">MAIS POPULAR</div><div class="plano-nome">Especial</div><div class="plano-preco">R$ 29,90<span>/mês·vida</span></div><div class="plano-desc">+ Consultas presenciais</div></div>
-        <div class="plano-card" id="pl-plus" onclick="selecionarPlanoGrid('pl','plus',49.90,this)"><div class="plano-nome">Plus</div><div class="plano-preco">R$ 49,90<span>/mês·vida</span></div><div class="plano-desc">+ Exames + R$100 farmácia</div></div>
-      </div>
-      <span class="err-msg" id="e-plano" style="margin-top:10px">Selecione um plano para continuar</span>
-    </div>
-    <div class="form-card" id="bloco-pag-toggle">
-      <div class="form-card-title">Forma de pagamento</div>
-      <div class="pag-toggle">
-        <button class="pag-btn selected" id="pag-mensal" onclick="setPag('mensal')">Mensal<span class="desconto"></span></button>
-        <button class="pag-btn" id="pag-anual" onclick="setPag('anual')">Anual<span class="desconto" style="color:var(--teal)">2 meses grátis</span></button>
-      </div>
-    </div>
-    <div class="form-card">
-      <div class="neg-check" onclick="toggleNeg()">
-        <input type="checkbox" id="check-neg" onclick="event.stopPropagation();toggleNeg()">
-        <label>Negociação de valor diferenciado?</label>
-      </div>
-      <div class="neg-fields" id="neg-fields">
-        <div class="form-row two" style="margin-top:12px">
-          <div class="field"><label>Valor negociado (R$/vida)</label><input type="number" id="neg-valor" placeholder="0,00" step="0.01" oninput="recalcularTotal()"></div>
-          <div class="field"><label>Motivo / observação</label><input type="text" id="neg-obs" placeholder="Ex: desconto corporativo"></div>
+        <div class="product-card disabled">
+          <div class="product-tag soon">Em breve</div>
+          <div class="product-icon">🎯</div>
+          <div class="product-name">Vida Garantida</div>
+          <div class="product-desc">Seguro de vida individual e coletivo.</div>
         </div>
       </div>
     </div>
-    <div class="nav-btns">
-      <button class="btn-voltar" id="btn-voltar-plano" onclick="voltarDoPlano()">← Voltar</button>
-      <button class="btn-avancar" onclick="validarPlano()">Próximo: Resumo →</button>
-    </div>
-  </div>
-</div>
-
-<!-- ═══════════════════════════════════
-     PÁGINA 4A — RESUMO PF / SIND-PF
-═══════════════════════════════════ -->
-<div id="page-resumo" class="page">
-  <div class="app-header"><div class="logo-slot"></div>
-    <div class="vendedor-badge"><div class="avatar">VD</div><div><span class="nv">Vendedor</span></div></div>
-    <button class="btn-sair" onclick="fazerLogout()">Sair</button></div>
-  <div class="main-content">
-    <p class="section-title">Resumo da proposta</p><p class="section-sub">Revise antes de transmitir ao cliente</p>
-    <div class="form-card" id="resumo-card">
-      <div class="resumo-row"><span class="rl">Vendedor</span><span class="rv" id="r-vendedor">—</span></div>
-      <div class="resumo-row"><span class="rl">Tipo</span><span class="rv" id="r-tipo">—</span></div>
-      <div class="resumo-row" id="r-row-sind" style="display:none"><span class="rl">Sindicato</span><span class="rv" id="r-sind">—</span></div>
-      <div class="resumo-row"><span class="rl">Nome</span><span class="rv" id="r-nome">—</span></div>
-      <div class="resumo-row"><span class="rl">CPF</span><span class="rv" id="r-doc">—</span></div>
-      <div class="resumo-row"><span class="rl">Telefone</span><span class="rv" id="r-tel">—</span></div>
-      <div class="resumo-row"><span class="rl">E-mail</span><span class="rv" id="r-email">—</span></div>
-      <div class="resumo-row" id="r-row-deps" style="display:none"><span class="rl">Dependentes</span><span class="rv" id="r-deps">—</span></div>
-      <div class="resumo-row"><span class="rl">Plano</span><span class="rv" id="r-plano">—</span></div>
-      <div class="resumo-row"><span class="rl">Pagamento</span><span class="rv" id="r-pagamento">—</span></div>
-      <div class="resumo-row" id="r-row-vidas"><span class="rl">Vidas contratadas</span><span class="rv" id="r-vidas">—</span></div>
-      <div class="resumo-row" id="r-row-neg" style="display:none"><span class="rl">Valor negociado</span><span class="rv" id="r-neg">—</span></div>
-      <div class="resumo-total"><span class="label">Total mensal</span><span class="valor" id="r-total">R$ 0,00</span></div>
-      <p class="resumo-sub" id="r-sub-calc"></p>
-    </div>
-    <div class="form-card" style="background:var(--teal-light);border-color:var(--teal-mid)">
-      <p style="font-size:13px;color:var(--teal-xdark);font-weight:600;margin-bottom:6px">O que acontece ao transmitir:</p>
-      <p style="font-size:13px;color:var(--teal-dark);line-height:1.7">O cliente receberá um <strong>WhatsApp</strong> com os dados e o botão <em>"Eu Confirmo a Contratação"</em>. Você acompanhará na próxima tela.</p>
-    </div>
-    <div class="nav-btns">
-      <button class="btn-voltar" onclick="irPara('page-plano')">← Editar plano</button>
-      <button class="btn-transmitir" onclick="transmitir()"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M18 2L2 9l6 3 4 6 6-16z" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Transmitir proposta</button>
-    </div>
-  </div>
-</div>
-
-<!-- ═══════════════════════════════════
-     PÁGINA 4B — RESUMO PJ
-═══════════════════════════════════ -->
-<div id="page-resumo-pj" class="page">
-  <div class="app-header"><div class="logo-slot"></div>
-    <div class="vendedor-badge"><div class="avatar">VD</div><div><span class="nv">Vendedor</span></div></div>
-    <button class="btn-sair" onclick="fazerLogout()">Sair</button></div>
-  <div class="main-content">
-    <p class="section-title">Resumo da proposta PJ</p><p class="section-sub">Revise antes de transmitir ao cliente</p>
-    <div class="form-card">
-      <div class="resumo-row"><span class="rl">Vendedor</span><span class="rv" id="rj-vendedor">—</span></div>
-      <div class="resumo-row" id="rj-row-sind" style="display:none"><span class="rl">Sindicato (estipulante)</span><span class="rv" id="rj-sind">—</span></div>
-      <div class="resumo-row"><span class="rl">Empresa (CNPJ)</span><span class="rv" id="rj-cnpj">—</span></div>
-      <div class="resumo-row"><span class="rl">Razão social</span><span class="rv" id="rj-razao">—</span></div>
-      <div class="resumo-row"><span class="rl">Responsável (CPF)</span><span class="rv" id="rj-resp">—</span></div>
-      <div class="resumo-row"><span class="rl">Telefone</span><span class="rv" id="rj-tel">—</span></div>
-      <div class="resumo-row"><span class="rl">E-mail</span><span class="rv" id="rj-email">—</span></div>
-      <div class="resumo-row"><span class="rl">Modalidade</span><span class="rv" id="rj-modalidade">—</span></div>
-      <div class="resumo-row"><span class="rl">Beneficiários</span><span class="rv" id="rj-bens">—</span></div>
-      <div class="resumo-row"><span class="rl">Plano</span><span class="rv" id="rj-plano">—</span></div>
-      <div class="resumo-total"><span class="label">Total mensal</span><span class="valor" id="rj-total">R$ 0,00</span></div>
-      <p class="resumo-sub" id="rj-sub-calc"></p>
-    </div>
-    <div class="form-card" style="background:var(--teal-light);border-color:var(--teal-mid)">
-      <p style="font-size:13px;color:var(--teal-xdark);font-weight:600;margin-bottom:6px">Pagamento exclusivamente mensal</p>
-      <p style="font-size:13px;color:var(--teal-dark)">A mensalidade é ajustada todo mês conforme o número de beneficiários ativos.</p>
-    </div>
-    <div class="nav-btns">
-      <button class="btn-voltar" id="btn-voltar-resumo-pj" onclick="voltarResumoPJ()">← Editar</button>
-      <button class="btn-transmitir" onclick="transmitir()"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M18 2L2 9l6 3 4 6 6-16z" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Transmitir proposta</button>
-    </div>
-  </div>
-</div>
-
-<!-- ═══════════════════════════════════
-     PÁGINA 5 — AGUARDANDO CONFIRMAÇÃO
-═══════════════════════════════════ -->
-<div id="page-aguardando" class="page">
-  <div class="app-header"><div class="logo-slot"></div>
-    <div class="vendedor-badge"><div class="avatar">VD</div><div><span class="nv">Vendedor</span></div></div>
-    <button class="btn-sair" onclick="fazerLogout()">Sair</button></div>
-  <div class="main-content">
-    <div class="ag-wrap">
-      <p class="prop-label">Número da proposta</p>
-      <p class="prop-num" id="ag-num">—</p>
-      <div class="status-badge aguardando" id="ag-badge">
-        <span class="status-dot pulse" id="ag-dot"></span>
-        <span id="ag-texto">Aguardando confirmação do cliente...</span>
-      </div>
-      <p style="font-size:14px;color:var(--gray-600);max-width:400px;margin:0 auto 24px">O cliente recebeu o WhatsApp com todos os dados da proposta e o botão de confirmação.</p>
-      <button class="btn-pdf" onclick="baixarPDF()">
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 1h6l4 4v10H4V1z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><path d="M10 1v4h4M5 9h6M5 11h4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
-        Baixar proposta em PDF</button>
-      <p style="font-size:12px;color:var(--gray-400);margin-bottom:8px">Proposta completa com todos os dados</p>
-      <button class="btn-concluir" id="btn-concluir" onclick="concluir()">Concluir contratação</button>
-      <p style="font-size:12px;color:var(--gray-400);margin-top:10px" id="ag-aviso">Liberado após confirmação do cliente</p>
-
-      <div class="teste-box">
-        <p style="font-weight:600;margin-bottom:4px">🧪 Área de teste — remover em produção</p>
-        <p>Simular o cliente clicando no botão de confirmação:</p>
-        <button onclick="simularConfirmacao()">Simular "Eu Confirmo a Contratação"</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-<!-- ═══════════════════════════════════
-     PÁGINA 6 — CONCLUSÃO
-═══════════════════════════════════ -->
-<div id="page-conclusao" class="page">
-  <div class="app-header"><div class="logo-slot"></div>
-    <div class="vendedor-badge"><div class="avatar">VD</div>
-      <div><span class="nv">Vendedor</span> · <strong class="cv">WL-000</strong></div></div>
-    <button class="btn-sair" onclick="fazerLogout()">Sair</button></div>
-  <div class="main-content">
-    <div class="conclusao-wrap">
-      <div class="conclusao-icon">
-        <svg viewBox="0 0 40 40" fill="none" stroke="#1D9E75" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="20" cy="20" r="18"/>
-          <path d="M12 20l6 6 10-12"/>
-        </svg>
-      </div>
-      <p class="conclusao-titulo">Parabéns! 🎉</p>
-      <p class="conclusao-texto">
-        Proposta transmitida com sucesso.<br>
-        Seu cliente recebeu e <strong>confirmou a contratação</strong>.<br><br>
-        Faça o acompanhamento desta proposta, comissões e status no seu painel administrativo.
-      </p>
-      <div>
-        <a href="https://painel.welifesaude.com.br" target="_blank" class="btn-painel" style="display:inline-flex;margin-bottom:16px">
-          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="2" y="2" width="6" height="6" rx="1"/><rect x="10" y="2" width="6" height="6" rx="1"/>
-            <rect x="2" y="10" width="6" height="6" rx="1"/><rect x="10" y="10" width="6" height="6" rx="1"/>
-          </svg>
-          Acessar painel administrativo
-        </a>
-      </div>
-      <button class="btn-nova-contratacao" onclick="novaContratacao()">
-        <svg width="15" height="15" viewBox="0 0 15 15" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="7.5" cy="7.5" r="6.5"/><path d="M7.5 4.5v6M4.5 7.5h6"/>
-        </svg>
-        Nova contratação
+    <div class="btn-actions">
+      <button class="btn btn-primary" id="btn-prod-next" onclick="goTo(2)" disabled>
+        Continuar →
       </button>
     </div>
   </div>
 </div>
 
-<div class="toast" id="toast"></div>
+<!-- ═══════════════════════════════════════
+     SCREEN 2 — TIPO
+════════════════════════════════════════ -->
+<div id="screen-2" class="screen">
+  <div class="main">
+    <p class="screen-title">Tipo de Contratação</p>
+    <p class="screen-sub">Qual é a modalidade do seu cliente?</p>
+    <div class="card">
+      <div class="type-grid">
+        <div class="type-card" id="type-pf" onclick="selectType('PF')">
+          <div class="type-icon">👤</div>
+          <div class="type-name">Pessoa Física</div>
+          <div class="type-sub">Plano individual ou familiar</div>
+        </div>
+        <div class="type-card" id="type-pj" onclick="selectType('PJ')">
+          <div class="type-icon">🏢</div>
+          <div class="type-name">Pessoa Jurídica</div>
+          <div class="type-sub">Empresa / CNPJ</div>
+        </div>
+        <div class="type-card" id="type-sind" onclick="selectType('Sindicato')">
+          <div class="type-icon">🤝</div>
+          <div class="type-name">Sindicato</div>
+          <div class="type-sub">Associação / Sindicato</div>
+        </div>
+      </div>
+    </div>
+    <div class="btn-actions">
+      <button class="btn btn-secondary" onclick="goTo(1)">← Voltar</button>
+      <button class="btn btn-primary" id="btn-type-next" onclick="goTo(3)" disabled>Continuar →</button>
+    </div>
+  </div>
+</div>
 
+<!-- ═══════════════════════════════════════
+     SCREEN 3 — FORMULÁRIOS
+════════════════════════════════════════ -->
+<div id="screen-3" class="screen">
+  <div class="main">
+    <p class="screen-title" id="form-title">Dados do Cliente</p>
+    <p class="screen-sub" id="form-sub">Preencha as informações do contratante.</p>
+
+    <!-- PF FORM -->
+    <div id="form-pf" style="display:none">
+      <div class="card">
+        <p class="section-label">Dados Pessoais</p>
+        <div class="rows-gap">
+          <div class="form-row">
+            <div class="form-group">
+              <label>Nome Completo *</label>
+              <input type="text" id="pf-nome" placeholder="Nome completo">
+            </div>
+            <div class="form-group">
+              <label>CPF *</label>
+              <input type="text" id="pf-cpf" placeholder="000.000.000-00" maxlength="14"
+                     oninput="maskCPF(this)">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Data de Nascimento *</label>
+              <input type="date" id="pf-nasc">
+            </div>
+            <div class="form-group">
+              <label>Sexo *</label>
+              <select id="pf-sexo">
+                <option value="">Selecione</option>
+                <option>Masculino</option>
+                <option>Feminino</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>E-mail *</label>
+              <input type="email" id="pf-email" placeholder="email@exemplo.com">
+            </div>
+            <div class="form-group">
+              <label>WhatsApp *</label>
+              <input type="tel" id="pf-tel" placeholder="(11) 90000-0000" maxlength="15"
+                     oninput="maskTel(this)">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:16px">
+        <p class="section-label">Endereço</p>
+        <div class="rows-gap">
+          <div class="form-row">
+            <div class="form-group">
+              <label>CEP *</label>
+              <input type="text" id="pf-cep" placeholder="00000-000" maxlength="9"
+                     oninput="maskCEP(this)" onblur="buscaCEP('pf')">
+            </div>
+            <div class="form-group" id="pf-cep-loading" style="display:none">
+              <label>&nbsp;</label>
+              <div class="loading-row" style="padding-top:10px">
+                <div class="spinner"></div> Buscando endereço...
+              </div>
+            </div>
+          </div>
+          <div class="form-row three">
+            <div class="form-group" style="grid-column:span 2">
+              <label>Logradouro *</label>
+              <input type="text" id="pf-rua" placeholder="Rua, Av, etc.">
+            </div>
+            <div class="form-group">
+              <label>Número *</label>
+              <input type="text" id="pf-num" placeholder="Nº">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Complemento</label>
+              <input type="text" id="pf-comp" placeholder="Apto, Bloco...">
+            </div>
+            <div class="form-group">
+              <label>Bairro *</label>
+              <input type="text" id="pf-bairro" placeholder="Bairro">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Cidade *</label>
+              <input type="text" id="pf-cidade" placeholder="Cidade">
+            </div>
+            <div class="form-group">
+              <label>UF *</label>
+              <input type="text" id="pf-uf" placeholder="SP" maxlength="2"
+                     oninput="this.value=this.value.toUpperCase()">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:16px">
+        <p class="section-label">Dependentes</p>
+        <div class="alert alert-info">
+          <span>ℹ️</span>
+          <span>Adicione cônjuge e filhos que serão incluídos no plano. O titular já está incluído automaticamente.</span>
+        </div>
+        <div id="dependentes-list"></div>
+        <button class="btn btn-secondary" onclick="addDependente()" style="margin-top:12px;font-size:13px;padding:9px 18px">
+          + Adicionar Dependente
+        </button>
+      </div>
+    </div>
+
+    <!-- PJ FORM -->
+    <div id="form-pj" style="display:none">
+      <div class="card">
+        <p class="section-label">Dados da Empresa</p>
+        <div class="rows-gap">
+          <div class="form-row">
+            <div class="form-group">
+              <label>CNPJ *</label>
+              <input type="text" id="pj-cnpj" placeholder="00.000.000/0000-00" maxlength="18"
+                     oninput="maskCNPJ(this)" onblur="buscaCNPJ()">
+            </div>
+            <div id="pj-cnpj-loading" style="display:none">
+              <label>&nbsp;</label>
+              <div class="loading-row" style="padding-top:10px">
+                <div class="spinner"></div> Consultando CNPJ...
+              </div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Razão Social *</label>
+              <input type="text" id="pj-razao" placeholder="Razão Social">
+            </div>
+            <div class="form-group">
+              <label>Nome Fantasia</label>
+              <input type="text" id="pj-fantasia" placeholder="Nome Fantasia">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>E-mail *</label>
+              <input type="email" id="pj-email" placeholder="empresa@exemplo.com">
+            </div>
+            <div class="form-group">
+              <label>Telefone/WhatsApp *</label>
+              <input type="tel" id="pj-tel" placeholder="(11) 3000-0000" maxlength="15"
+                     oninput="maskTel(this)">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Nome do Responsável *</label>
+              <input type="text" id="pj-resp" placeholder="Nome do responsável">
+            </div>
+            <div class="form-group">
+              <label>Cargo</label>
+              <input type="text" id="pj-cargo" placeholder="Ex: Diretor RH">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:16px">
+        <p class="section-label">Endereço</p>
+        <div class="rows-gap">
+          <div class="form-row">
+            <div class="form-group">
+              <label>CEP *</label>
+              <input type="text" id="pj-cep" placeholder="00000-000" maxlength="9"
+                     oninput="maskCEP(this)" onblur="buscaCEP('pj')">
+            </div>
+          </div>
+          <div class="form-row three">
+            <div class="form-group" style="grid-column:span 2">
+              <label>Logradouro *</label>
+              <input type="text" id="pj-rua" placeholder="Rua, Av, etc.">
+            </div>
+            <div class="form-group">
+              <label>Número *</label>
+              <input type="text" id="pj-num" placeholder="Nº">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Complemento</label>
+              <input type="text" id="pj-comp" placeholder="Sala, Andar...">
+            </div>
+            <div class="form-group">
+              <label>Bairro *</label>
+              <input type="text" id="pj-bairro" placeholder="Bairro">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Cidade *</label>
+              <input type="text" id="pj-cidade" placeholder="Cidade">
+            </div>
+            <div class="form-group">
+              <label>UF *</label>
+              <input type="text" id="pj-uf" placeholder="SP" maxlength="2"
+                     oninput="this.value=this.value.toUpperCase()">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SINDICATO FORM -->
+    <div id="form-sind" style="display:none">
+      <div class="card">
+        <p class="section-label">Dados do Sindicato / Associação</p>
+        <div class="rows-gap">
+          <div class="form-row">
+            <div class="form-group">
+              <label>CNPJ *</label>
+              <input type="text" id="sind-cnpj" placeholder="00.000.000/0000-00" maxlength="18"
+                     oninput="maskCNPJ(this)" onblur="buscaCNPJSind()">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Nome do Sindicato / Associação *</label>
+              <input type="text" id="sind-nome" placeholder="Nome completo">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>E-mail *</label>
+              <input type="email" id="sind-email" placeholder="contato@sindicato.org">
+            </div>
+            <div class="form-group">
+              <label>Telefone/WhatsApp *</label>
+              <input type="tel" id="sind-tel" placeholder="(11) 3000-0000" maxlength="15"
+                     oninput="maskTel(this)">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Nome do Dirigente *</label>
+              <input type="text" id="sind-resp" placeholder="Nome do responsável">
+            </div>
+            <div class="form-group">
+              <label>Categoria Profissional</label>
+              <input type="text" id="sind-cat" placeholder="Ex: Metalúrgicos, Professores...">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>CEP *</label>
+              <input type="text" id="sind-cep" placeholder="00000-000" maxlength="9"
+                     oninput="maskCEP(this)" onblur="buscaCEP('sind')">
+            </div>
+          </div>
+          <div class="form-row three">
+            <div class="form-group" style="grid-column:span 2">
+              <label>Logradouro *</label>
+              <input type="text" id="sind-rua">
+            </div>
+            <div class="form-group">
+              <label>Número *</label>
+              <input type="text" id="sind-num">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Bairro *</label>
+              <input type="text" id="sind-bairro">
+            </div>
+            <div class="form-group">
+              <label>Cidade *</label>
+              <input type="text" id="sind-cidade">
+            </div>
+          </div>
+          <div class="form-group">
+            <label>UF *</label>
+            <input type="text" id="sind-uf" maxlength="2" style="max-width:80px"
+                   oninput="this.value=this.value.toUpperCase()">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="btn-actions">
+      <button class="btn btn-secondary" onclick="goTo(2)">← Voltar</button>
+      <button class="btn btn-primary" onclick="goTo(4)">Continuar →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     SCREEN 4 — PLANO
+════════════════════════════════════════ -->
+<div id="screen-4" class="screen">
+  <div class="main">
+    <p class="screen-title">Plano & Vidas</p>
+    <p class="screen-sub">Escolha o plano e informe o número de vidas a contratar.</p>
+
+    <!-- período só para PF -->
+    <div id="periodo-wrap" class="card" style="margin-bottom:16px">
+      <p class="section-label">Período de Pagamento</p>
+      <div class="period-toggle">
+        <button class="period-btn active" id="btn-mensal" onclick="setPeriodo('mensal')">Mensal</button>
+        <button class="period-btn" id="btn-anual" onclick="setPeriodo('anual')">
+          Anual <span class="badge-anual">2 meses grátis</span>
+        </button>
+      </div>
+      <div class="alert alert-info" id="alerta-anual" style="display:none">
+        <span>🎉</span>
+        <span>No plano anual, o cliente paga 10 meses e usa 12! Desconto de ~16% em relação ao mensal.</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <p class="section-label">Escolha o Plano</p>
+      <div class="plan-grid" id="plan-grid">
+        <!-- Planos gerados por JS -->
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:16px">
+      <p class="section-label">Número de Vidas</p>
+      <div class="lives-input-row">
+        <label>Vidas a contratar</label>
+        <button class="qty-btn" onclick="changeLives(-1)">−</button>
+        <input type="number" id="inp-vidas" value="1" min="1" max="999" oninput="calcTotal()">
+        <button class="qty-btn" onclick="changeLives(1)">+</button>
+      </div>
+      <div id="pj-min-warn" class="alert alert-warn" style="display:none;margin-top:12px">
+        <span>⚠️</span>
+        <span>Plano PJ exige mínimo de 2 vidas.</span>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:16px">
+      <div class="summary-total">
+        <span class="label">Total Estimado</span>
+        <span class="value" id="total-preview">R$ 0,00</span>
+      </div>
+      <p style="font-size:12px;color:var(--mist);margin-top:8px;text-align:right">
+        <span id="total-formula"></span>
+      </p>
+    </div>
+
+    <div class="btn-actions">
+      <button class="btn btn-secondary" onclick="goTo(3)">← Voltar</button>
+      <button class="btn btn-primary" id="btn-plan-next" onclick="goTo(5)" disabled>Continuar →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     SCREEN 5 — RESUMO
+════════════════════════════════════════ -->
+<div id="screen-5" class="screen">
+  <div class="main">
+    <p class="screen-title">Resumo da Proposta</p>
+    <p class="screen-sub">Confirme todos os dados antes de transmitir.</p>
+
+    <div class="card">
+      <p class="section-label">Contratação</p>
+      <div class="summary-block" id="sum-contrat"></div>
+
+      <p class="section-label" style="margin-top:20px">Cliente</p>
+      <div class="summary-block" id="sum-cliente"></div>
+
+      <div id="sum-dep-wrap" style="display:none">
+        <p class="section-label" style="margin-top:20px">Dependentes</p>
+        <div class="summary-block" id="sum-dep"></div>
+      </div>
+
+      <p class="section-label" style="margin-top:20px">Endereço</p>
+      <div class="summary-block" id="sum-end"></div>
+
+      <div class="divider"></div>
+      <div class="summary-total" id="sum-total-final"></div>
+    </div>
+
+    <div class="alert alert-warn" style="margin-top:16px">
+      <span>⚠️</span>
+      <span>Verifique todos os dados. Após transmitir, o cliente receberá a proposta por WhatsApp para confirmação.</span>
+    </div>
+
+    <div class="btn-actions">
+      <button class="btn btn-secondary" onclick="goTo(4)">← Voltar</button>
+      <button class="btn btn-primary" onclick="goTo(6)">Transmitir via WhatsApp →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     SCREEN 6 — TRANSMITIR
+════════════════════════════════════════ -->
+<div id="screen-6" class="screen">
+  <div class="main">
+    <p class="screen-title">Transmitir Proposta</p>
+    <p class="screen-sub">A mensagem abaixo será enviada ao cliente via WhatsApp.</p>
+
+    <div class="card">
+      <p class="section-label">Prévia da mensagem</p>
+      <div class="phone-preview" id="whatsapp-preview"></div>
+
+      <div id="transmit-idle">
+        <div class="alert alert-info" style="margin-top:16px">
+          <span>📱</span>
+          <span>O cliente receberá esta mensagem no WhatsApp e deverá confirmar os dados para prosseguir.</span>
+        </div>
+        <div class="btn-actions">
+          <button class="btn btn-secondary" onclick="goTo(5)">← Voltar</button>
+          <button class="btn btn-primary" onclick="doTransmit()">
+            📤 Transmitir Agora
+          </button>
+        </div>
+      </div>
+
+      <div id="transmit-loading" style="display:none">
+        <div class="transmit-status">
+          <div class="transmit-icon">⏳</div>
+          <div class="transmit-title">Enviando proposta...</div>
+          <div class="transmit-sub">Conectando ao servidor. Aguarde um momento.</div>
+        </div>
+      </div>
+
+      <div id="transmit-sent" style="display:none">
+        <div class="transmit-status">
+          <div class="transmit-icon">✅</div>
+          <div class="transmit-title">Proposta transmitida!</div>
+          <div class="transmit-sub">
+            A mensagem foi enviada ao cliente.<br>
+            Aguarde a confirmação dele para prosseguir.
+          </div>
+        </div>
+        <div class="btn-actions" style="justify-content:center">
+          <button class="btn btn-primary" onclick="goTo(7)">Concluir →</button>
+        </div>
+      </div>
+
+      <div id="transmit-error" style="display:none">
+        <div class="alert" style="background:#FEE8EB;border:1px solid #F5C6CB;color:var(--danger);margin-top:16px">
+          <span>❌</span>
+          <span id="transmit-error-msg">Erro ao enviar. Tente novamente.</span>
+        </div>
+        <div class="btn-actions">
+          <button class="btn btn-secondary" onclick="goTo(5)">← Voltar</button>
+          <button class="btn btn-primary" onclick="doTransmit()">Tentar Novamente</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     SCREEN 7 — CONCLUSÃO
+════════════════════════════════════════ -->
+<div id="screen-7" class="screen">
+  <div class="main">
+    <div class="card">
+      <div class="conclusion-hero">
+        <div class="conclusion-check">✓</div>
+        <div class="conclusion-title">Proposta Enviada!</div>
+        <div class="conclusion-sub">
+          A proposta foi transmitida com sucesso.<br>
+          O cliente receberá o link de confirmação via WhatsApp.<br>
+          Após a confirmação, o processo de contratação será iniciado.
+        </div>
+        <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+          <a href="#" class="btn btn-primary" id="btn-painel">
+            📊 Ver no Painel Admin
+          </a>
+          <button class="btn btn-secondary" onclick="novaVenda()">
+            + Nova Contratação
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:20px">
+      <p class="section-label">Resumo Final</p>
+      <div id="conc-resumo"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     JAVASCRIPT
+════════════════════════════════════════ -->
 <script>
-// ═══ DADOS ═══
-const VENDEDORES = {
-  'WL-001':{senha:'1234',nome:'Ana Souza',comissao:15},
-  'WL-002':{senha:'5678',nome:'Carlos Lima',comissao:12},
-  'WL-003':{senha:'welife',nome:'Mariana Costa',comissao:18},
+// ── STATE ──────────────────────────────────────────────────────
+const USERS = {
+  'WL-001': { senha: '1234',  nome: 'Ana Vendedora' },
+  'WL-002': { senha: '5678',  nome: 'Bruno Lima' },
+  'WL-003': { senha: 'welife', nome: 'Carlos Souza' },
 };
-const SINDICATOS = {
-  sind1:{nome:'Sindicato dos Metalúrgicos de SP',valor:29.90},
-  sind2:{nome:'Sindicato dos Comerciários do ABC',valor:24.90},
-  sind3:{nome:'Associação dos Servidores Municipais',valor:19.90},
-};
+
 const PLANOS = {
-  essencial:{nome:'Essencial',preco:19.90},
-  especial:{nome:'Especial',preco:29.90},
-  plus:{nome:'Plus',preco:49.90},
+  saude: [
+    { id: 'basico',   nome: 'Básico',   preco: 189.90, features: ['Consultas clínicas','Urgência 24h','Exames básicos'] },
+    { id: 'essencial', nome: 'Essencial', preco: 279.90, recommended: true, features: ['Tudo do Básico','Especialistas','Internação','Exames avançados'] },
+    { id: 'premium',  nome: 'Premium',  preco: 389.90, features: ['Tudo do Essencial','Cirurgias','Odonto básico','Cobertura nacional'] },
+  ]
 };
 
-// ═══ ESTADO ═══
-let vendedor = null;
-let tipoSel = null;       // 'pf' | 'pj' | 'sind'
-let pfMod = 'individual'; // 'individual' | 'familiar'
-let spfMod = 'individual';
-let pjMod = 'unico';      // 'unico' | 'opcional'
-let spjMod = 'unico';
-let sindMod = 'pf';       // 'pf' | 'pj'
-let depCount = 0, benPJCount = 0, spfDepCount = 0, benSPJCount = 0;
-let pagamento = 'mensal';
+let state = {
+  screen: 0,
+  user: null,
+  produto: null,
+  tipo: null,
+  periodo: 'mensal',
+  plano: null,
+  vidas: 1,
+  dados: {},
+  dependentes: [],
+};
 
-// planoGrid[prefix] = {nome, preco}
-const planoGrid = {};
+// ── AUTH ───────────────────────────────────────────────────────
+function loginKey(e) { if (e.key === 'Enter') doLogin(); }
 
-// ═══ LOGOS ═══
-function injetarLogos() {
-  const loginSlot = document.getElementById('slot-login-logo');
-  const tplLogin = document.getElementById('tpl-logo-login').content.cloneNode(true);
-  loginSlot.appendChild(tplLogin);
-  document.querySelectorAll('.logo-slot').forEach(el => {
-    el.appendChild(document.getElementById('tpl-logo-header').content.cloneNode(true));
-  });
+function doLogin() {
+  const code = document.getElementById('inp-code').value.trim().toUpperCase();
+  const pass  = document.getElementById('inp-pass').value;
+  const err   = document.getElementById('login-error');
+  err.style.display = 'none';
+  if (USERS[code] && USERS[code].senha === pass) {
+    state.user = { code, nome: USERS[code].nome };
+    document.getElementById('hdr-code').textContent   = code;
+    document.getElementById('hdr-seller').textContent = USERS[code].nome;
+    document.getElementById('app-header').style.display = 'flex';
+    document.getElementById('progress-bar').style.display = 'flex';
+    goTo(1);
+  } else {
+    err.style.display = 'block';
+  }
 }
-document.addEventListener('DOMContentLoaded', injetarLogos);
 
-// ═══ NAVEGAÇÃO ═══
-function irPara(id) {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
+function doLogout() {
+  if (!confirm('Deseja sair?')) return;
+  state = { screen:0,user:null,produto:null,tipo:null,periodo:'mensal',plano:null,vidas:1,dados:{},dependentes:[] };
+  document.getElementById('app-header').style.display = 'none';
+  document.getElementById('progress-bar').style.display = 'none';
+  showScreen('login');
+  updateProgress(0);
+}
+
+// ── NAVIGATION ─────────────────────────────────────────────────
+function goTo(n) {
+  if (n === 5) buildSummary();
+  if (n === 6) buildWhatsApp();
+  if (n === 7) buildConclusion();
+  showScreen(n);
+  updateProgress(n);
+}
+
+function showScreen(n) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  const id = n === 'login' ? 'screen-login' : `screen-${n}`;
+  const el = document.getElementById(id);
+  if (el) el.classList.add('active');
   window.scrollTo(0,0);
-  reportHeight();
+  state.screen = n;
 }
 
-// ═══ LOGIN ═══
-function fazerLogin() {
-  const cod = document.getElementById('login-codigo').value.trim().toUpperCase();
-  const sen = document.getElementById('login-senha').value;
-  const v = VENDEDORES[cod];
-  if (v && v.senha === sen) {
-    vendedor = {codigo: cod, ...v};
-    document.getElementById('login-error').classList.remove('show');
-    atualizarUI();
-    irPara('page-produto');
-  } else {
-    document.getElementById('login-error').classList.add('show');
+function updateProgress(n) {
+  for (let i=1; i<=6; i++) {
+    const tab = document.getElementById(`stab-${i}`);
+    if (!tab) continue;
+    tab.className = 'step-tab';
+    if (i < n)  tab.classList.add('done');
+    if (i === n) tab.classList.add('active');
   }
 }
-function fazerLogout() { vendedor = null; tipoSel = null; irPara('page-login'); }
-function atualizarUI() {
-  if (!vendedor) return;
-  const ini = vendedor.nome.split(' ').map(n=>n[0]).join('').slice(0,2).toUpperCase();
-  document.querySelectorAll('.avatar').forEach(a => a.textContent = ini);
-  document.querySelectorAll('.nv').forEach(e => e.textContent = vendedor.nome);
-  document.querySelectorAll('.cv').forEach(e => e.textContent = vendedor.codigo);
+
+// ── STEP 1 — PRODUTO ───────────────────────────────────────────
+function selectProduct(p) {
+  state.produto = p;
+  document.querySelectorAll('.product-card:not(.disabled)').forEach(c => c.classList.remove('selected'));
+  document.getElementById(`prod-${p}`).classList.add('selected');
+  document.getElementById('btn-prod-next').disabled = false;
+  renderPlanos();
 }
 
+// ── STEP 2 — TIPO ──────────────────────────────────────────────
+function selectType(t) {
+  state.tipo = t;
+  ['pf','pj','sind'].forEach(x => document.getElementById(`type-${x}`)?.classList.remove('selected'));
+  const map = {PF:'pf', PJ:'pj', Sindicato:'sind'};
+  document.getElementById(`type-${map[t]}`).classList.add('selected');
+  document.getElementById('btn-type-next').disabled = false;
 
-// ═══ PRODUTO ═══
-let produtoSel = null;
-function selecionarProduto(p) {
-  produtoSel = p;
-  document.querySelectorAll('.prod-card.ativo').forEach(c => c.classList.remove('selected'));
-  document.getElementById('prod-'+p).classList.add('selected');
-  const btn = document.getElementById('btn-avancar-produto');
-  btn.disabled = false; btn.style.opacity = '1'; btn.style.cursor = 'pointer';
-}
-function irParaTipo() {
-  if (!produtoSel) return;
-  irPara('page-tipo');
-}
+  // show/hide period toggle
+  document.getElementById('periodo-wrap').style.display = (t === 'PF') ? 'block' : 'none';
+  if (t !== 'PF') { state.periodo = 'mensal'; }
 
-// ═══ CONCLUSÃO ═══
-function mostrarConclusao() {
-  irPara('page-conclusao');
-}
-function novaContratacao() {
-  tipoSel = null; pfMod = 'individual'; spfMod = 'individual';
-  pjMod = 'unico'; spjMod = 'unico'; sindMod = 'pf';
-  depCount = 0; benPJCount = 0; spfDepCount = 0; benSPJCount = 0;
-  pagamento = 'mensal'; produtoSel = null;
-  Object.keys(planoGrid).forEach(k => delete planoGrid[k]);
-  document.querySelectorAll('.tipo-card').forEach(c => c.classList.remove('selected'));
-  document.querySelectorAll('.prod-card.ativo').forEach(c => c.classList.remove('selected'));
-  ['lista-deps','lista-ben-pj','lista-spf-deps','lista-ben-spj'].forEach(id => {
-    const el = document.getElementById(id); if(el) el.innerHTML = '';
-  });
-  const cb = document.getElementById('check-neg');
-  if (cb) { cb.checked = false; document.getElementById('neg-fields').classList.remove('show'); }
-  const btn = document.getElementById('btn-avancar-produto');
-  if (btn) { btn.disabled = true; btn.style.opacity = '.4'; btn.style.cursor = 'not-allowed'; }
-  const btt = document.getElementById('btn-avancar-tipo');
-  if (btt) { btt.disabled = true; btt.style.opacity = '.4'; btt.style.cursor = 'not-allowed'; }
-  irPara('page-produto');
-}
-
-// ═══ TIPO ═══
-function selecionarTipo(t) {
-  tipoSel = t;
-  document.querySelectorAll('.tipo-card').forEach(c => c.classList.remove('selected'));
-  document.getElementById('tipo-'+t).classList.add('selected');
-  const btn = document.getElementById('btn-avancar-tipo');
-  btn.disabled = false; btn.style.opacity = '1'; btn.style.cursor = 'pointer';
-}
-function irParaFormulario() {
-  if (!tipoSel) return;
-  if (tipoSel === 'pf') irPara('page-pf');
-  else if (tipoSel === 'pj') irPara('page-pj');
-  else irPara('page-sind');
-}
-
-// ═══ VALIDAÇÃO ═══
-function vCampos(ids) {
-  let ok = true;
-  ids.forEach(id => {
-    const el = document.getElementById(id);
-    const err = document.getElementById('e-'+id);
-    if (!el) return;
-    const vazio = !el.value.trim();
-    el.classList.toggle('error', vazio);
-    if (err) err.classList.toggle('show', vazio);
-    if (vazio) ok = false;
-  });
-  return ok;
-}
-
-// ═══ PF ═══
-function setPFMod(m) {
-  pfMod = m;
-  document.getElementById('pf-mod-individual').classList.toggle('selected', m==='individual');
-  document.getElementById('pf-mod-familiar').classList.toggle('selected', m==='familiar');
-  document.getElementById('bloco-deps').style.display = m==='familiar' ? 'block' : 'none';
-}
-function validarPF() {
-  if (!vCampos(['pf-nome','pf-cpf','pf-nasc','pf-tel','pf-email'])) {
-    showToast('Preencha os campos obrigatórios.','error'); return;
+  // PJ min lives
+  if (t === 'PJ' && state.vidas < 2) {
+    state.vidas = 2;
+    document.getElementById('inp-vidas').value = 2;
   }
-  document.getElementById('btn-voltar-plano').dataset.origem = 'pf';
-  irPara('page-plano');
 }
-function adicionarDep() {
+
+// ── STEP 3 — FORM ──────────────────────────────────────────────
+function showForm() {
+  ['form-pf','form-pj','form-sind'].forEach(f => document.getElementById(f).style.display='none');
+  const map = {PF:'form-pf', PJ:'form-pj', Sindicato:'form-sind'};
+  document.getElementById(map[state.tipo]).style.display = 'block';
+
+  const titles = { PF:'Dados do Cliente', PJ:'Dados da Empresa', Sindicato:'Dados do Sindicato' };
+  document.getElementById('form-title').textContent = titles[state.tipo];
+}
+
+// ── DEPENDENTES (PF) ───────────────────────────────────────────
+let depCount = 0;
+function addDependente() {
   depCount++;
-  const graus = ['Cônjuge','Filho(a)','Pai','Mãe','Irmão(ã)','Avô/Avó','Outro'];
-  const d = document.createElement('div');
-  d.className='dep-item'; d.id='dep-'+depCount;
-  d.innerHTML = `<div class="dep-header"><span class="dep-title">Dependente ${depCount}</span>
-    <button class="btn-remover" onclick="document.getElementById('dep-${depCount}').remove()">Remover</button></div>
-    <div class="form-row two">
-      <div class="field"><label>Nome completo <span class="req">*</span></label><input type="text" placeholder="Nome completo"></div>
-      <div class="field"><label>Grau de parentesco <span class="req">*</span></label><select>${graus.map(g=>`<option>${g}</option>`).join('')}</select></div>
-    </div>
-    <div class="form-row three">
-      <div class="field"><label>CPF</label><input type="text" placeholder="000.000.000-00" oninput="mascaraCPF(this)"></div>
-      <div class="field"><label>Data de nascimento</label><input type="date"></div>
-      <div class="field"><label>Telefone</label><input type="text" placeholder="(11) 99999-9999" oninput="mascaraTel(this)"></div>
-    </div>
-    <div class="form-row full"><div class="field"><label>E-mail</label><input type="email" placeholder="email@exemplo.com"></div></div>
-    <div class="form-row two">
-      <div class="field"><label>Facebook</label><input type="text" placeholder="facebook.com/perfil"></div>
-      <div class="field"><label>Instagram</label><input type="text" placeholder="@usuario"></div>
+  const id = `dep-${depCount}`;
+  const html = `
+    <div id="${id}" style="border:1.5px solid var(--fog);border-radius:10px;padding:16px;margin-bottom:12px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+        <span style="font-size:13px;font-weight:600;color:var(--slate)">Dependente ${depCount}</span>
+        <button onclick="remDep('${id}')" style="background:none;border:none;color:var(--danger);cursor:pointer;font-size:13px">✕ Remover</button>
+      </div>
+      <div class="rows-gap">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Nome *</label>
+            <input type="text" placeholder="Nome completo" data-dep="${id}" data-field="nome">
+          </div>
+          <div class="form-group">
+            <label>CPF</label>
+            <input type="text" placeholder="000.000.000-00" maxlength="14" data-dep="${id}" data-field="cpf"
+                   oninput="maskCPF(this)">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Data de Nasc. *</label>
+            <input type="date" data-dep="${id}" data-field="nasc">
+          </div>
+          <div class="form-group">
+            <label>Parentesco *</label>
+            <select data-dep="${id}" data-field="parent">
+              <option value="">Selecione</option>
+              <option>Cônjuge</option><option>Filho(a)</option>
+              <option>Enteado(a)</option><option>Pai/Mãe</option>
+            </select>
+          </div>
+        </div>
+      </div>
     </div>`;
-  document.getElementById('lista-deps').appendChild(d);
-  reportHeight();
+  document.getElementById('dependentes-list').insertAdjacentHTML('beforeend', html);
 }
 
-// ═══ PJ ═══
-function validarPJ() {
-  if (!vCampos(['pj-cnpj','pj-razao','pj-cpf-resp','pj-tel','pj-email','pj-rua'])) {
-    showToast('Preencha os campos obrigatórios.','error'); return;
-  }
-  irPara('page-pj-ben');
-}
-function setPJMod(m) {
-  pjMod = m;
-  document.getElementById('pj-mod-unico').classList.toggle('selected', m==='unico');
-  document.getElementById('pj-mod-opcional').classList.toggle('selected', m==='opcional');
-  document.getElementById('bloco-plano-unico').style.display = m==='unico' ? 'block' : 'none';
-  document.querySelectorAll('.ben-plano-row').forEach(r => r.style.display = m==='opcional' ? 'block' : 'none');
-}
-function adicionarBenPJ() {
-  benPJCount++;
-  const d = document.createElement('div');
-  d.className='dep-item'; d.id='ben-'+benPJCount;
-  const opts = Object.entries(PLANOS).map(([k,v])=>`<option value="${k}">${v.nome} — R$ ${v.preco.toFixed(2).replace('.',',')}</option>`).join('');
-  d.innerHTML = `<div class="dep-header"><span class="dep-title">Beneficiário ${benPJCount}</span>
-    <button class="btn-remover" onclick="document.getElementById('ben-${benPJCount}').remove()">Remover</button></div>
-    <div class="form-row two">
-      <div class="field"><label>Nome completo <span class="req">*</span></label><input type="text" placeholder="Nome completo"></div>
-      <div class="field"><label>CPF <span class="req">*</span></label><input type="text" placeholder="000.000.000-00" oninput="mascaraCPF(this)"></div>
-    </div>
-    <div class="form-row three">
-      <div class="field"><label>Data de nascimento</label><input type="date"></div>
-      <div class="field"><label>Telefone</label><input type="text" placeholder="(11) 99999-9999" oninput="mascaraTel(this)"></div>
-      <div class="field"><label>E-mail</label><input type="email" placeholder="email@exemplo.com"></div>
-    </div>
-    <div class="form-row two">
-      <div class="field"><label>Facebook</label><input type="text" placeholder="facebook.com/perfil"></div>
-      <div class="field"><label>Instagram</label><input type="text" placeholder="@usuario"></div>
-    </div>
-    <div class="ben-plano-row" style="display:${pjMod==='opcional'?'block':'none'}">
-      <div class="field" style="margin-top:8px"><label>Plano individual <span class="req">*</span></label>
-        <select class="ben-plano-select"><option value="">— Selecione —</option>${opts}</select></div>
-    </div>`;
-  document.getElementById('lista-ben-pj').appendChild(d);
-  reportHeight();
-}
-function irParaResumoPJ(origem) {
-  // coletar dados PJ ou SIND-PJ
-  const isSind = origem === 'sind';
-  const cnpjId = isSind ? 'spj-cnpj' : 'pj-cnpj';
-  const razaoId = isSind ? 'spj-razao' : 'pj-razao';
-  const respId = isSind ? 'spj-cpf-resp' : 'pj-cpf-resp';
-  const telId = isSind ? 'spj-tel' : 'pj-tel';
-  const emailId = isSind ? 'spj-email' : 'pj-email';
-  const listaBens = isSind ? '#lista-ben-spj .dep-item' : '#lista-ben-pj .dep-item';
-  const modAtual = isSind ? spjMod : pjMod;
-  const planoKey = isSind ? 'spu' : 'pu';
-
-  document.getElementById('rj-vendedor').textContent = vendedor ? `${vendedor.nome} (${vendedor.codigo})` : '—';
-  
-  const sindEl = document.getElementById('rj-row-sind');
-  if (isSind) {
-    sindEl.style.display = 'flex';
-    const sv = document.getElementById('sind-select').value;
-    document.getElementById('rj-sind').textContent = sv ? SINDICATOS[sv]?.nome : '—';
-  } else {
-    sindEl.style.display = 'none';
-  }
-
-  document.getElementById('rj-cnpj').textContent = document.getElementById(cnpjId)?.value || '—';
-  document.getElementById('rj-razao').textContent = document.getElementById(razaoId)?.value || '—';
-  document.getElementById('rj-resp').textContent = document.getElementById(respId)?.value || '—';
-  document.getElementById('rj-tel').textContent = document.getElementById(telId)?.value || '—';
-  document.getElementById('rj-email').textContent = document.getElementById(emailId)?.value || '—';
-  document.getElementById('rj-modalidade').textContent = modAtual==='unico' ? 'Plano único' : 'Opcional por beneficiário';
-
-  const bens = document.querySelectorAll(listaBens);
-  const qtd = bens.length;
-  document.getElementById('rj-bens').textContent = qtd + ' beneficiário(s)';
-
-  // calcular total
-  let totalMensal = 0;
-  let planoTexto = '—';
-  if (modAtual === 'unico') {
-    const pg = planoGrid[planoKey];
-    if (pg) {
-      totalMensal = pg.preco * qtd;
-      planoTexto = `${pg.nome} — R$ ${pg.preco.toFixed(2).replace('.',',')} × ${qtd} vida(s)`;
-    }
-  } else {
-    bens.forEach(b => {
-      const sel = b.querySelector('.ben-plano-select');
-      if (sel && sel.value && PLANOS[sel.value]) totalMensal += PLANOS[sel.value].preco;
-    });
-    planoTexto = 'Individual por beneficiário';
-  }
-  document.getElementById('rj-plano').textContent = planoTexto;
-  document.getElementById('rj-total').textContent = `R$ ${totalMensal.toFixed(2).replace('.',',')}`;
-  document.getElementById('rj-sub-calc').textContent = modAtual==='unico' && planoGrid[planoKey]
-    ? `${qtd} vida(s) × R$ ${planoGrid[planoKey].preco.toFixed(2).replace('.',',')} = R$ ${totalMensal.toFixed(2).replace('.',',')}/mês`
-    : '';
-  
-  document.getElementById('btn-voltar-resumo-pj').dataset.origem = isSind ? 'sind' : 'pj';
-  irPara('page-resumo-pj');
-}
-function voltarResumoPJ() {
-  const o = document.getElementById('btn-voltar-resumo-pj').dataset.origem;
-  irPara(o === 'sind' ? 'page-sind-pj' : 'page-pj-ben');
+function remDep(id) {
+  document.getElementById(id)?.remove();
 }
 
-// ═══ SINDICATO ═══
-function sindicatoSelecionado(val) {
-  const card = document.getElementById('sind-info');
-  if (!val) { card.classList.remove('show'); return; }
-  const s = SINDICATOS[val];
-  document.getElementById('sind-nome').textContent = s.nome;
-  document.getElementById('sind-detalhe').textContent = `Valor do plano: R$ ${s.valor.toFixed(2).replace('.',',')}/mês · vida`;
-  card.classList.add('show');
-}
-function setSindMod(m) {
-  sindMod = m;
-  document.getElementById('sind-mod-pf').classList.toggle('selected', m==='pf');
-  document.getElementById('sind-mod-pj').classList.toggle('selected', m==='pj');
-}
-function validarSindStep1() {
-  const sel = document.getElementById('sind-select').value;
-  document.getElementById('sind-select').classList.toggle('error', !sel);
-  document.getElementById('e-sind-select').classList.toggle('show', !sel);
-  if (!sel) { showToast('Selecione um sindicato.','error'); return; }
-  if (sindMod === 'pf') irPara('page-sind-pf');
-  else irPara('page-sind-pj');
-}
-
-// SIND-PF
-function setSPFMod(m) {
-  spfMod = m;
-  document.getElementById('spf-mod-individual').classList.toggle('selected', m==='individual');
-  document.getElementById('spf-mod-familiar').classList.toggle('selected', m==='familiar');
-  document.getElementById('bloco-spf-deps').style.display = m==='familiar' ? 'block' : 'none';
-}
-function validarSindPF() {
-  if (!vCampos(['spf-nome','spf-cpf','spf-nasc','spf-tel','spf-email'])) {
-    showToast('Preencha os campos obrigatórios.','error'); return;
-  }
-  document.getElementById('btn-voltar-plano').dataset.origem = 'sind-pf';
-  irPara('page-plano');
-}
-function adicionarDepSind() {
-  spfDepCount++;
-  const graus = ['Cônjuge','Filho(a)','Pai','Mãe','Irmão(ã)','Avô/Avó','Outro'];
-  const d = document.createElement('div');
-  d.className='dep-item'; d.id='spf-dep-'+spfDepCount;
-  d.innerHTML = `<div class="dep-header"><span class="dep-title">Dependente ${spfDepCount}</span>
-    <button class="btn-remover" onclick="document.getElementById('spf-dep-${spfDepCount}').remove()">Remover</button></div>
-    <div class="form-row two">
-      <div class="field"><label>Nome <span class="req">*</span></label><input type="text" placeholder="Nome completo"></div>
-      <div class="field"><label>Grau de parentesco</label><select>${graus.map(g=>`<option>${g}</option>`).join('')}</select></div>
-    </div>
-    <div class="form-row two">
-      <div class="field"><label>CPF</label><input type="text" placeholder="000.000.000-00" oninput="mascaraCPF(this)"></div>
-      <div class="field"><label>Telefone</label><input type="text" placeholder="(11) 99999-9999" oninput="mascaraTel(this)"></div>
-    </div>
-    <div class="form-row two">
-      <div class="field"><label>Facebook</label><input type="text" placeholder="facebook.com/perfil"></div>
-      <div class="field"><label>Instagram</label><input type="text" placeholder="@usuario"></div>
-    </div>`;
-  document.getElementById('lista-spf-deps').appendChild(d);
-  reportHeight();
-}
-
-// SIND-PJ
-function setSPJMod(m) {
-  spjMod = m;
-  document.getElementById('spj-mod-unico').classList.toggle('selected', m==='unico');
-  document.getElementById('spj-mod-opcional').classList.toggle('selected', m==='opcional');
-  document.getElementById('bloco-spj-plano-unico').style.display = m==='unico' ? 'block' : 'none';
-  document.querySelectorAll('.ben-spj-plano-row').forEach(r => r.style.display = m==='opcional' ? 'block' : 'none');
-}
-function adicionarBenSPJ() {
-  benSPJCount++;
-  const d = document.createElement('div');
-  d.className='dep-item'; d.id='ben-spj-'+benSPJCount;
-  const opts = Object.entries(PLANOS).map(([k,v])=>`<option value="${k}">${v.nome} — R$ ${v.preco.toFixed(2).replace('.',',')}</option>`).join('');
-  d.innerHTML = `<div class="dep-header"><span class="dep-title">Beneficiário ${benSPJCount}</span>
-    <button class="btn-remover" onclick="document.getElementById('ben-spj-${benSPJCount}').remove()">Remover</button></div>
-    <div class="form-row two">
-      <div class="field"><label>Nome <span class="req">*</span></label><input type="text" placeholder="Nome completo"></div>
-      <div class="field"><label>CPF</label><input type="text" placeholder="000.000.000-00" oninput="mascaraCPF(this)"></div>
-    </div>
-    <div class="form-row two">
-      <div class="field"><label>Telefone</label><input type="text" placeholder="(11) 99999-9999" oninput="mascaraTel(this)"></div>
-      <div class="field"><label>E-mail</label><input type="email" placeholder="email@exemplo.com"></div>
-    </div>
-    <div class="form-row two">
-      <div class="field"><label>Facebook</label><input type="text" placeholder="facebook.com/perfil"></div>
-      <div class="field"><label>Instagram</label><input type="text" placeholder="@usuario"></div>
-    </div>
-    <div class="ben-spj-plano-row" style="display:${spjMod==='opcional'?'block':'none'}">
-      <div class="field" style="margin-top:8px"><label>Plano individual</label>
-        <select class="ben-plano-select"><option value="">— Selecione —</option>${opts}</select></div>
-    </div>`;
-  document.getElementById('lista-ben-spj').appendChild(d);
-  reportHeight();
-}
-
-// ═══ PLANO (PF / SIND-PF) ═══
-function selecionarPlanoGrid(prefix, nome, preco, el) {
-  planoGrid[prefix] = {nome, preco};
-  el.closest('.planos-grid').querySelectorAll('.plano-card').forEach(c => c.classList.remove('selected'));
-  el.classList.add('selected');
-  if (prefix === 'pl') {
-    document.getElementById('e-plano').style.display = 'none';
-    recalcularTotal();
-  }
-}
-function setPag(m) {
-  pagamento = m;
-  document.getElementById('pag-mensal').classList.toggle('selected', m==='mensal');
-  document.getElementById('pag-anual').classList.toggle('selected', m==='anual');
-}
-function toggleNeg() {
-  const cb = document.getElementById('check-neg');
-  cb.checked = !cb.checked;
-  document.getElementById('neg-fields').classList.toggle('show', cb.checked);
-  recalcularTotal();
-}
-function recalcularTotal() {}
-
-function voltarDoPlano() {
-  const o = document.getElementById('btn-voltar-plano').dataset.origem;
-  if (o === 'pf') irPara('page-pf');
-  else if (o === 'sind-pf') irPara('page-sind-pf');
-  else irPara('page-sind');
-}
-function validarPlano() {
-  if (!planoGrid['pl']) {
-    document.getElementById('e-plano').style.display = 'block';
-    showToast('Selecione um plano para continuar.','error'); return;
-  }
-  montarResumoPF();
-}
-function montarResumoPF() {
-  const isSind = document.getElementById('btn-voltar-plano').dataset.origem === 'sind-pf';
-  const tipo = isSind ? 'Sindicato / Associação' : (pfMod==='familiar' ? 'Pessoa Física — Familiar' : 'Pessoa Física — Individual');
-  const nomeId = isSind ? 'spf-nome' : 'pf-nome';
-  const cpfId = isSind ? 'spf-cpf' : 'pf-cpf';
-  const telId = isSind ? 'spf-tel' : 'pf-tel';
-  const emailId = isSind ? 'spf-email' : 'pf-email';
-  const deps = isSind
-    ? document.querySelectorAll('#lista-spf-deps .dep-item')
-    : document.querySelectorAll('#lista-deps .dep-item');
-
-  document.getElementById('r-vendedor').textContent = vendedor ? `${vendedor.nome} (${vendedor.codigo})` : '—';
-  document.getElementById('r-tipo').textContent = tipo;
-
-  const rSind = document.getElementById('r-row-sind');
-  if (isSind) {
-    rSind.style.display = 'flex';
-    const sv = document.getElementById('sind-select').value;
-    document.getElementById('r-sind').textContent = sv ? SINDICATOS[sv]?.nome : '—';
-  } else {
-    rSind.style.display = 'none';
-  }
-
-  document.getElementById('r-nome').textContent = document.getElementById(nomeId)?.value || '—';
-  document.getElementById('r-doc').textContent = document.getElementById(cpfId)?.value || '—';
-  document.getElementById('r-tel').textContent = document.getElementById(telId)?.value || '—';
-  document.getElementById('r-email').textContent = document.getElementById(emailId)?.value || '—';
-
-  const qtdDeps = deps.length;
-  if (qtdDeps > 0) {
-    document.getElementById('r-row-deps').style.display = 'flex';
-    document.getElementById('r-deps').textContent = qtdDeps + ' dependente(s)';
-  } else {
-    document.getElementById('r-row-deps').style.display = 'none';
-  }
-
-  const vidas = 1 + qtdDeps;
-  document.getElementById('r-row-vidas').style.display = 'flex';
-  document.getElementById('r-vidas').textContent = vidas + ' vida(s)';
-
-  const pg = planoGrid['pl'];
-  document.getElementById('r-plano').textContent = pg ? `${pg.nome} — R$ ${pg.preco.toFixed(2).replace('.',',')}` : '—';
-  document.getElementById('r-pagamento').textContent = pagamento === 'mensal' ? 'Mensal' : 'Anual (10 parcelas)';
-
-  const negVal = parseFloat(document.getElementById('neg-valor').value) || 0;
-  const negObs = document.getElementById('neg-obs').value;
-  const negAtivo = document.getElementById('check-neg').checked && negVal > 0;
-  const precoPorVida = negAtivo ? negVal : (pg ? pg.preco : 0);
-  const total = precoPorVida * vidas;
-
-  if (negAtivo) {
-    document.getElementById('r-row-neg').style.display = 'flex';
-    document.getElementById('r-neg').textContent = `R$ ${negVal.toFixed(2).replace('.',',')}` + (negObs ? ` — ${negObs}` : '');
-  } else {
-    document.getElementById('r-row-neg').style.display = 'none';
-  }
-
-  document.getElementById('r-total').textContent = `R$ ${total.toFixed(2).replace('.',',')}`;
-  document.getElementById('r-sub-calc').textContent = `${vidas} vida(s) × R$ ${precoPorVida.toFixed(2).replace('.',',')} = R$ ${total.toFixed(2).replace('.',',')}/mês`;
-
-  irPara('page-resumo');
-}
-
-// ═══ TRANSMITIR ═══
-function gerarNumProposta() {
-  const n = new Date();
-  const d = n.getFullYear()+String(n.getMonth()+1).padStart(2,'0')+String(n.getDate()).padStart(2,'0');
-  return d + String(Math.floor(Math.random()*999999)+1).padStart(6,'0');
-}
-function transmitir() {
-  const btns = document.querySelectorAll('.btn-transmitir');
-  btns.forEach(b => { b.textContent = 'Transmitindo...'; b.disabled = true; });
-  setTimeout(() => {
-    btns.forEach(b => { b.innerHTML = '<svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M18 2L2 9l6 3 4 6 6-16z" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Transmitir proposta'; b.disabled = false; });
-    document.getElementById('ag-num').textContent = gerarNumProposta();
-    document.getElementById('ag-badge').className = 'status-badge aguardando';
-    document.getElementById('ag-dot').className = 'status-dot pulse';
-    document.getElementById('ag-texto').textContent = 'Aguardando confirmação do cliente...';
-    document.getElementById('btn-concluir').classList.remove('liberado');
-    document.getElementById('ag-aviso').style.display = 'block';
-    showToast('Proposta transmitida! WhatsApp enviado ao cliente.','success');
-    irPara('page-aguardando');
-  }, 1800);
-}
-
-// ═══ CONFIRMAR / PDF / CONCLUIR ═══
-function simularConfirmacao() {
-  document.getElementById('ag-badge').className = 'status-badge confirmado';
-  document.getElementById('ag-dot').className = 'status-dot ok';
-  document.getElementById('ag-texto').textContent = '✓ Cliente confirmou a contratação!';
-  document.getElementById('btn-concluir').classList.add('liberado');
-  document.getElementById('ag-aviso').style.display = 'none';
-  showToast('Cliente confirmou! Você pode concluir a contratação.','success');
-}
-function baixarPDF() {
-  const num = document.getElementById('ag-num').textContent;
-  // Gerar PDF simples com os dados do resumo
-  const linhas = [];
-  linhas.push('PROPOSTA WELIFE SAÚDE');
-  linhas.push('Nº ' + num);
-  linhas.push('');
-  // coletar dados do resumo visível
-  document.querySelectorAll('#resumo-card .resumo-row, #page-resumo-pj .form-card .resumo-row').forEach(row => {
-    const l = row.querySelector('.rl')?.textContent;
-    const v = row.querySelector('.rv')?.textContent;
-    if (l && v && v !== '—') linhas.push(`${l}: ${v}`);
+function getDependentes() {
+  const deps = [];
+  document.querySelectorAll('[data-dep]').forEach(el => {
+    const dep = el.dataset.dep;
+    const field = el.dataset.field;
+    if (!deps.find(d=>d.id===dep)) deps.push({id:dep,nome:'',cpf:'',nasc:'',parent:''});
+    deps.find(d=>d.id===dep)[field] = el.value;
   });
-  linhas.push('');
-  linhas.push('Data: ' + new Date().toLocaleDateString('pt-BR'));
-  linhas.push('Vendedor: ' + (vendedor ? `${vendedor.nome} (${vendedor.codigo})` : '—'));
-  const blob = new Blob([linhas.join('\n')], {type:'text/plain;charset=utf-8'});
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = `proposta-${num}.txt`;
-  a.click();
-  showToast(`Proposta ${num} baixada com sucesso!`,'success');
-}
-function concluir() {
-  showToast('Contratação concluída com sucesso!','success');
-  setTimeout(() => { mostrarConclusao(); }, 1200);
+  return deps.filter(d=>d.nome);
 }
 
-// ═══ CNPJ LOOKUP ═══
-async function buscarCNPJ(cnpj, prefix) {
-  const c = cnpj.replace(/\D/g,'');
-  if (c.length !== 14) return;
-  const statusId = prefix + '-cnpj-status';
-  const st = document.getElementById(statusId);
-  if (st) { st.style.display='block'; st.textContent='Buscando dados da empresa...'; st.className='cnpj-status'; }
-  try {
-    const r = await fetch(`https://brasilapi.com.br/api/cnpj/v1/${c}`);
-    if (!r.ok) throw new Error();
-    const d = await r.json();
-    const set = (id, v) => { const el = document.getElementById(id); if(el) el.value = v||''; };
-    if (prefix === 'pj') {
-      set('pj-razao', d.razao_social); set('pj-fantasia', d.nome_fantasia);
-      if (d.cep) { const cepFmt = d.cep.replace(/(\d{5})(\d{3})/,'$1-$2'); set('pj-cep',cepFmt); await buscarCEP(cepFmt,'pj'); }
-      set('pj-num', d.numero);
-      if (d.ddd_telefone_1) { const t=d.ddd_telefone_1.replace(/\D/g,''); set('pj-tel', t.length>=10?`(${t.slice(0,2)}) ${t.slice(2,6)}-${t.slice(6)}`:''); }
-    } else if (prefix === 'spj') {
-      set('spj-razao', d.razao_social); set('spj-fantasia', d.nome_fantasia);
-      if (d.ddd_telefone_1) { const t=d.ddd_telefone_1.replace(/\D/g,''); set('spj-tel', t.length>=10?`(${t.slice(0,2)}) ${t.slice(2,6)}-${t.slice(6)}`:''); }
-    }
-    if (st) { st.textContent='✓ Dados preenchidos via Receita Federal'; st.className='cnpj-status ok'; setTimeout(()=>st.style.display='none',3000); }
-    showToast('Dados da empresa carregados!','success');
-  } catch {
-    if (st) { st.textContent='CNPJ não encontrado. Preencha manualmente.'; st.className='cnpj-status err'; setTimeout(()=>st.style.display='none',3000); }
+// ── STEP 4 — PLANO ─────────────────────────────────────────────
+function renderPlanos() {
+  if (!state.produto) return;
+  const planos = PLANOS[state.produto];
+  const grid = document.getElementById('plan-grid');
+  grid.innerHTML = planos.map(p => {
+    const preco = state.periodo === 'anual' ? (p.preco * 10/12) : p.preco;
+    const suf = state.periodo === 'anual' ? '/mês (anual)' : '/mês';
+    return `<div class="plan-card${p.recommended?' recommended':''}${state.plano===p.id?' selected':''}"
+              id="plancard-${p.id}" onclick="selectPlano('${p.id}')">
+      <div class="plan-name">${p.nome}</div>
+      <div class="plan-price">R$ ${fmtMoney(preco)}<span>${suf}</span></div>
+      <div class="plan-features">
+        ${p.features.map(f=>`<div class="plan-feat">${f}</div>`).join('')}
+      </div>
+    </div>`;
+  }).join('');
+  calcTotal();
+}
+
+function selectPlano(id) {
+  state.plano = id;
+  document.querySelectorAll('.plan-card').forEach(c=>c.classList.remove('selected'));
+  document.getElementById(`plancard-${id}`)?.classList.add('selected');
+  document.getElementById('btn-plan-next').disabled = false;
+  calcTotal();
+}
+
+function setPeriodo(p) {
+  state.periodo = p;
+  document.getElementById('btn-mensal').classList.toggle('active', p==='mensal');
+  document.getElementById('btn-anual').classList.toggle('active', p==='anual');
+  document.getElementById('alerta-anual').style.display = p==='anual' ? 'flex' : 'none';
+  renderPlanos();
+}
+
+function changeLives(d) {
+  const inp = document.getElementById('inp-vidas');
+  let v = parseInt(inp.value)||1;
+  v = Math.max(state.tipo==='PJ'?2:1, Math.min(999, v+d));
+  inp.value = v;
+  state.vidas = v;
+  calcTotal();
+  document.getElementById('pj-min-warn').style.display =
+    (state.tipo==='PJ' && v<2) ? 'flex' : 'none';
+}
+
+function calcTotal() {
+  state.vidas = parseInt(document.getElementById('inp-vidas')?.value)||1;
+  if (!state.plano) { document.getElementById('total-preview').textContent='R$ 0,00'; return; }
+  const plano = PLANOS[state.produto].find(p=>p.id===state.plano);
+  if (!plano) return;
+  let preco = plano.preco;
+  if (state.periodo==='anual') preco = preco * 10/12;
+  const total = preco * state.vidas;
+  document.getElementById('total-preview').textContent = `R$ ${fmtMoney(total)}`;
+  document.getElementById('total-formula').textContent =
+    `R$ ${fmtMoney(preco)} × ${state.vidas} vida${state.vidas>1?'s':''}`;
+}
+
+// ── STEP 5 — RESUMO ────────────────────────────────────────────
+function buildSummary() {
+  const plano = PLANOS[state.produto]?.find(p=>p.id===state.plano);
+  let preco = plano ? plano.preco : 0;
+  if (state.periodo==='anual') preco = preco*10/12;
+  const total = preco * state.vidas;
+
+  // Contratação
+  document.getElementById('sum-contrat').innerHTML = rows([
+    ['Produto', 'Saúde Protegida'],
+    ['Tipo', state.tipo],
+    ['Plano', plano?.nome||'—'],
+    ['Período', state.periodo==='anual'?'Anual (10 meses)':'Mensal'],
+    ['Vidas', state.vidas],
+  ]);
+
+  // Cliente
+  let clienteRows = [];
+  if (state.tipo==='PF') {
+    clienteRows = [
+      ['Nome', v('pf-nome')],['CPF', v('pf-cpf')],['Nasc.', v('pf-nasc')],
+      ['Sexo', v('pf-sexo')],['E-mail', v('pf-email')],['WhatsApp', v('pf-tel')],
+    ];
+  } else if (state.tipo==='PJ') {
+    clienteRows = [
+      ['Razão Social', v('pj-razao')],['CNPJ', v('pj-cnpj')],
+      ['Nome Fantasia', v('pj-fantasia')],['Responsável', v('pj-resp')],
+      ['E-mail', v('pj-email')],['Telefone', v('pj-tel')],
+    ];
+  } else {
+    clienteRows = [
+      ['Sindicato', v('sind-nome')],['CNPJ', v('sind-cnpj')],
+      ['Dirigente', v('sind-resp')],['Categoria', v('sind-cat')],
+      ['E-mail', v('sind-email')],['Telefone', v('sind-tel')],
+    ];
   }
+  document.getElementById('sum-cliente').innerHTML = rows(clienteRows.filter(r=>r[1]));
+
+  // Dependentes
+  const deps = getDependentes();
+  if (deps.length && state.tipo==='PF') {
+    document.getElementById('sum-dep-wrap').style.display='block';
+    document.getElementById('sum-dep').innerHTML = deps.map(d=>
+      rows([[d.parent||'Dependente', `${d.nome}${d.nasc?' — '+d.nasc:''}`]])
+    ).join('');
+  } else {
+    document.getElementById('sum-dep-wrap').style.display='none';
+  }
+
+  // Endereço
+  const prefix = {PF:'pf',PJ:'pj',Sindicato:'sind'}[state.tipo];
+  const end = [v(`${prefix}-rua`),v(`${prefix}-num`),v(`${prefix}-comp`),v(`${prefix}-bairro`),v(`${prefix}-cidade`)+'/'+v(`${prefix}-uf`)].filter(Boolean).join(', ');
+  document.getElementById('sum-end').innerHTML = rows([
+    ['CEP', v(`${prefix}-cep`)],
+    ['Endereço', end],
+  ]);
+
+  // Total
+  document.getElementById('sum-total-final').innerHTML = `
+    <span class="label" style="font-family:Syne;font-weight:700;font-size:15px">Total ${state.periodo==='mensal'?'Mensal':'Anual'}</span>
+    <span class="value" style="font-family:Syne;font-weight:800;font-size:24px;color:var(--green-dark)">R$ ${fmtMoney(total)}</span>`;
 }
 
-// ═══ CEP ═══
-async function buscarCEP(cep, prefix) {
-  const c = cep.replace(/\D/g,'');
-  if (c.length !== 8) return;
+// ── STEP 6 — WHATSAPP ──────────────────────────────────────────
+function buildWhatsApp() {
+  const plano = PLANOS[state.produto]?.find(p=>p.id===state.plano);
+  let preco = plano ? plano.preco : 0;
+  if (state.periodo==='anual') preco = preco*10/12;
+  const total = preco * state.vidas;
+
+  const prefix = {PF:'pf',PJ:'pj',Sindicato:'sind'}[state.tipo];
+  const nome = state.tipo==='PF' ? v('pf-nome') : state.tipo==='PJ' ? v('pj-razao') : v('sind-nome');
+  const tel  = state.tipo==='PF' ? v('pf-tel') : state.tipo==='PJ' ? v('pj-tel') : v('sind-tel');
+
+  const msg = `*WeLife — Proposta de Saúde*\n\nOlá, *${nome || 'cliente'}*! 👋\n\nRecebemos sua solicitação de contratação:\n\n📋 *Produto:* Saúde Protegida\n👥 *Tipo:* ${state.tipo}\n🏆 *Plano:* ${plano?.nome||'—'}\n👤 *Vidas:* ${state.vidas}\n📅 *Período:* ${state.periodo==='anual'?'Anual':'Mensal'}\n\n💰 *Valor: R$ ${fmtMoney(total)}/mês*\n\nPor favor, confirme seus dados respondendo *SIM* para avançarmos com a contratação.\n\nVendedor: ${state.user.nome} (${state.user.code})\n\n_WeLife — Cuidando de quem importa_`;
+
+  document.getElementById('whatsapp-preview').textContent = msg;
+
+  // reset transmit UI
+  document.getElementById('transmit-idle').style.display = 'block';
+  document.getElementById('transmit-loading').style.display = 'none';
+  document.getElementById('transmit-sent').style.display = 'none';
+  document.getElementById('transmit-error').style.display = 'none';
+}
+
+function doTransmit() {
+  document.getElementById('transmit-idle').style.display = 'none';
+  document.getElementById('transmit-error').style.display = 'none';
+  document.getElementById('transmit-loading').style.display = 'block';
+
+  // Payload para webhook n8n (quando integrado)
+  const payload = buildPayload();
+
+  const WEBHOOK_URL = ''; // ← inserir URL do n8n aqui
+
+  if (!WEBHOOK_URL) {
+    // Modo demo: simula envio com 2.5s de delay
+    setTimeout(() => {
+      document.getElementById('transmit-loading').style.display = 'none';
+      document.getElementById('transmit-sent').style.display = 'block';
+    }, 2500);
+    return;
+  }
+
+  fetch(WEBHOOK_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload),
+  })
+  .then(r => {
+    if (!r.ok) throw new Error(`HTTP ${r.status}`);
+    return r.json();
+  })
+  .then(() => {
+    document.getElementById('transmit-loading').style.display = 'none';
+    document.getElementById('transmit-sent').style.display = 'block';
+  })
+  .catch(err => {
+    document.getElementById('transmit-loading').style.display = 'none';
+    document.getElementById('transmit-error-msg').textContent = `Erro: ${err.message}`;
+    document.getElementById('transmit-error').style.display = 'block';
+  });
+}
+
+function buildPayload() {
+  const plano = PLANOS[state.produto]?.find(p=>p.id===state.plano);
+  let preco = plano ? plano.preco : 0;
+  if (state.periodo==='anual') preco = preco*10/12;
+  const prefix = {PF:'pf',PJ:'pj',Sindicato:'sind'}[state.tipo];
+
+  return {
+    vendedor: { codigo: state.user.code, nome: state.user.nome },
+    contratacao: {
+      produto: 'Saúde Protegida',
+      tipo: state.tipo,
+      plano: plano?.nome,
+      periodo: state.periodo,
+      vidas: state.vidas,
+      total: +(preco * state.vidas).toFixed(2),
+      precoPorVida: +preco.toFixed(2),
+    },
+    cliente: {
+      nome: v(`${prefix}-nome`) || v(`${prefix}-razao`) || v(`${prefix}-nome`),
+      cpf_cnpj: v(`${prefix}-cpf`) || v(`${prefix}-cnpj`) || v('sind-cnpj'),
+      email: v(`${prefix}-email`),
+      telefone: v(`${prefix}-tel`),
+      endereco: {
+        cep: v(`${prefix}-cep`),
+        logradouro: v(`${prefix}-rua`),
+        numero: v(`${prefix}-num`),
+        complemento: v(`${prefix}-comp`),
+        bairro: v(`${prefix}-bairro`),
+        cidade: v(`${prefix}-cidade`),
+        uf: v(`${prefix}-uf`),
+      },
+    },
+    dependentes: getDependentes(),
+    mensagemWhatsApp: document.getElementById('whatsapp-preview').textContent,
+    timestamp: new Date().toISOString(),
+  };
+}
+
+// ── STEP 7 — CONCLUSÃO ─────────────────────────────────────────
+function buildConclusion() {
+  const plano = PLANOS[state.produto]?.find(p=>p.id===state.plano);
+  let preco = plano ? plano.preco : 0;
+  if (state.periodo==='anual') preco = preco*10/12;
+  const total = preco * state.vidas;
+  const prefix = {PF:'pf',PJ:'pj',Sindicato:'sind'}[state.tipo];
+  const nome = state.tipo==='PF'?v('pf-nome'):state.tipo==='PJ'?v('pj-razao'):v('sind-nome');
+
+  document.getElementById('conc-resumo').innerHTML = `
+    <div class="summary-block">${rows([
+      ['Cliente',  nome],
+      ['Plano',    plano?.nome],
+      ['Tipo',     state.tipo],
+      ['Vidas',    state.vidas],
+      ['Período',  state.periodo==='anual'?'Anual':'Mensal'],
+      ['Total',    `R$ ${fmtMoney(total)}/mês`],
+      ['Vendedor', `${state.user.nome} (${state.user.code})`],
+    ])}</div>`;
+}
+
+function novaVenda() {
+  state = { ...state, produto:null, tipo:null, periodo:'mensal', plano:null, vidas:1, dados:{}, dependentes:[] };
+  depCount = 0;
+  document.getElementById('dependentes-list').innerHTML='';
+  document.querySelectorAll('.product-card:not(.disabled)').forEach(c=>c.classList.remove('selected'));
+  document.querySelectorAll('.type-card').forEach(c=>c.classList.remove('selected'));
+  document.querySelectorAll('.plan-card').forEach(c=>c.classList.remove('selected'));
+  document.getElementById('btn-prod-next').disabled = true;
+  document.getElementById('btn-type-next').disabled = true;
+  document.getElementById('btn-plan-next').disabled = true;
+  goTo(1);
+}
+
+// ── APIS EXTERNAS ──────────────────────────────────────────────
+async function buscaCEP(prefix) {
+  const cep = document.getElementById(`${prefix}-cep`)?.value.replace(/\D/g,'');
+  if (cep.length !== 8) return;
+  document.getElementById(`${prefix}-cep-loading`)?.style && (document.getElementById(`${prefix}-cep-loading`).style.display='block');
   try {
-    const r = await fetch(`https://viacep.com.br/ws/${c}/json/`);
+    const r = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
     const d = await r.json();
     if (d.erro) return;
-    const set = (id,v) => { const el=document.getElementById(id); if(el) el.value=v||''; };
-    set(prefix+'-rua',d.logradouro); set(prefix+'-bairro',d.bairro);
-    set(prefix+'-cidade',d.localidade); set(prefix+'-uf',d.uf);
-  } catch {}
+    setVal(`${prefix}-rua`,    d.logradouro);
+    setVal(`${prefix}-bairro`, d.bairro);
+    setVal(`${prefix}-cidade`, d.localidade);
+    setVal(`${prefix}-uf`,     d.uf);
+  } catch(e) {}
+  finally {
+    document.getElementById(`${prefix}-cep-loading`)?.style && (document.getElementById(`${prefix}-cep-loading`).style.display='none');
+  }
 }
 
-// ═══ PLANILHA ═══
-function processarPlanilha(input) {
-  const f = input.files[0]; if(!f) return;
-  showToast(`Planilha "${f.name}" carregada. Revise os dados.`,'success');
+async function buscaCNPJ() {
+  const cnpj = document.getElementById('pj-cnpj')?.value.replace(/\D/g,'');
+  if (cnpj.length !== 14) return;
+  document.getElementById('pj-cnpj-loading').style.display='block';
+  try {
+    const r = await fetch(`https://brasilapi.com.br/api/cnpj/v1/${cnpj}`);
+    const d = await r.json();
+    setVal('pj-razao',    d.razao_social);
+    setVal('pj-fantasia', d.nome_fantasia);
+    setVal('pj-email',    d.email);
+    setVal('pj-tel',      d.ddd_telefone_1 ? `(${d.ddd_telefone_1}) ${d.telefone_1}` : '');
+    setVal('pj-cep',      maskCEPVal(d.cep));
+    setVal('pj-rua',      d.logradouro);
+    setVal('pj-num',      d.numero);
+    setVal('pj-comp',     d.complemento);
+    setVal('pj-bairro',   d.bairro);
+    setVal('pj-cidade',   d.municipio);
+    setVal('pj-uf',       d.uf);
+  } catch(e) {}
+  finally {
+    document.getElementById('pj-cnpj-loading').style.display='none';
+  }
 }
-function baixarModelo() { showToast('Link do modelo configurado no painel admin.',''); }
 
-// ═══ MÁSCARAS ═══
-function mascaraCPF(el){let v=el.value.replace(/\D/g,'').slice(0,11);if(v.length>9)v=v.replace(/(\d{3})(\d{3})(\d{3})(\d{1,2})/,'$1.$2.$3-$4');else if(v.length>6)v=v.replace(/(\d{3})(\d{3})(\d+)/,'$1.$2.$3');else if(v.length>3)v=v.replace(/(\d{3})(\d+)/,'$1.$2');el.value=v;}
-function mascaraCNPJ(el){let v=el.value.replace(/\D/g,'').slice(0,14);if(v.length>12)v=v.replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{1,2})/,'$1.$2.$3/$4-$5');else if(v.length>8)v=v.replace(/(\d{2})(\d{3})(\d{3})(\d+)/,'$1.$2.$3/$4');else if(v.length>5)v=v.replace(/(\d{2})(\d{3})(\d+)/,'$1.$2.$3');else if(v.length>2)v=v.replace(/(\d{2})(\d+)/,'$1.$2');el.value=v;}
-function mascaraTel(el){let v=el.value.replace(/\D/g,'').slice(0,11);if(v.length>10)v=v.replace(/(\d{2})(\d{5})(\d{4})/,'($1) $2-$3');else if(v.length>6)v=v.replace(/(\d{2})(\d{4})(\d+)/,'($1) $2-$3');else if(v.length>2)v=v.replace(/(\d{2})(\d+)/,'($1) $2');el.value=v;}
-function mascaraCEP(el){let v=el.value.replace(/\D/g,'').slice(0,8);if(v.length>5)v=v.replace(/(\d{5})(\d+)/,'$1-$2');el.value=v;}
+async function buscaCNPJSind() {
+  const cnpj = document.getElementById('sind-cnpj')?.value.replace(/\D/g,'');
+  if (cnpj.length !== 14) return;
+  try {
+    const r = await fetch(`https://brasilapi.com.br/api/cnpj/v1/${cnpj}`);
+    const d = await r.json();
+    setVal('sind-nome', d.razao_social);
+    setVal('sind-email', d.email);
+    setVal('sind-cep',   maskCEPVal(d.cep));
+    setVal('sind-rua',   d.logradouro);
+    setVal('sind-num',   d.numero);
+    setVal('sind-bairro',d.bairro);
+    setVal('sind-cidade',d.municipio);
+    setVal('sind-uf',    d.uf);
+  } catch(e) {}
+}
 
-// ═══ TOAST ═══
-function showToast(msg,tipo){const t=document.getElementById('toast');t.textContent=msg;t.className='toast show '+(tipo||'');setTimeout(()=>t.classList.remove('show'),4000);}
+// ── MASKS ──────────────────────────────────────────────────────
+function maskCPF(el) {
+  let v = el.value.replace(/\D/g,'');
+  v = v.replace(/(\d{3})(\d)/,'$1.$2').replace(/(\d{3})(\d)/,'$1.$2').replace(/(\d{3})(\d{1,2})$/,'$1-$2');
+  el.value = v;
+}
+function maskCNPJ(el) {
+  let v = el.value.replace(/\D/g,'');
+  v = v.replace(/^(\d{2})(\d)/,'$1.$2').replace(/^(\d{2})\.(\d{3})(\d)/,'$1.$2.$3')
+       .replace(/\.(\d{3})(\d)/,'.$1/$2').replace(/(\d{4})(\d)/,'$1-$2');
+  el.value = v;
+}
+function maskCEP(el) { el.value = maskCEPVal(el.value); }
+function maskCEPVal(s) {
+  let v = (s||'').replace(/\D/g,'');
+  return v.replace(/^(\d{5})(\d)/,'$1-$2');
+}
+function maskTel(el) {
+  let v = el.value.replace(/\D/g,'');
+  if (v.length > 10) v = v.replace(/^(\d{2})(\d{5})(\d{4}).*/,'($1) $2-$3');
+  else v = v.replace(/^(\d{2})(\d{4})(\d{0,4}).*/,'($1) $2-$3');
+  el.value = v;
+}
 
-// ═══ HEIGHT REPORTER (iframe Elementor) ═══
-function reportHeight(){var h=Math.max(document.body.scrollHeight,document.body.offsetHeight,document.documentElement.scrollHeight);window.parent.postMessage({welifeHeight:h},'*');}
-window.addEventListener('load',reportHeight);
-window.addEventListener('resize',reportHeight);
-new MutationObserver(reportHeight).observe(document.body,{childList:true,subtree:true,attributes:true});
+// ── HELPERS ────────────────────────────────────────────────────
+function v(id) { return document.getElementById(id)?.value || ''; }
+function setVal(id, val) { const el = document.getElementById(id); if (el) el.value = val||''; }
+function fmtMoney(n) {
+  return (+n).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});
+}
+function rows(pairs) {
+  return pairs.filter(([,v])=>v).map(([l,vl])=>`
+    <div class="summary-row">
+      <span class="label">${l}</span>
+      <span class="value">${vl}</span>
+    </div>`).join('');
+}
+
+// ── SCREEN 3 INTERCEPT ────────────────────────────────────────
+// Intercept goTo(3) to show correct form
+const _orig = goTo;
+// Override is done by extending:
+const origGoTo = goTo;
+window.goTo = function(n) {
+  if (n === 3) showForm();
+  origGoTo(n);
+};
 </script>
 </body>
 </html>
