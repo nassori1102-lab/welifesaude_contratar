@@ -536,7 +536,7 @@ body{font-family:var(--font-body);background:linear-gradient(135deg,#E1F5EE 0%,#
         <p style="font-size:12px;color:var(--gray-600);margin-bottom:12px;font-weight:600;text-transform:uppercase;letter-spacing:.04em">Plano único para todos os beneficiários</p>
         <div class="planos-grid">
           <div class="plano-card" id="pu-essencial" onclick="selecionarPlanoGrid('pu','essencial',19.90,this)"><div class="plano-nome">Essencial</div><div class="plano-preco">R$ 19,90<span>/mês·vida</span></div><div class="plano-desc">Telemedicina ilimitada</div></div>
-          <div class="plano-card popular" id="pu-especial" onclick="selecionarPlanoGrid('pu','especial',29.90,this)"><div class="plano-badge">MAIS POPULAR</div><div class="plano-nome">Especial</div><div class="plano-preco">R$ 29,90<span>/mês·vida</span></div><div class="plano-desc">+ Consultas presenciais</div></div>
+          <div class="plano-card popular" id="pu-especial" onclick="selecionarPlanoGrid('pu','especial',29.90,this)"><div class="plano-badge">MAIS POPULAR</div><div class="plano-nome">Especial</div><div class="plano-preco">R$ 29,90<span>/mês·vida</span></div><div class="plano-desc">Telemedicina agendada por especialidades</div></div>
           <div class="plano-card" id="pu-plus" onclick="selecionarPlanoGrid('pu','plus',49.90,this)"><div class="plano-nome">Plus</div><div class="plano-preco">R$ 49,90<span>/mês·vida</span></div><div class="plano-desc">+ Exames + R$100 farmácia</div></div>
         </div>
         <span class="err-msg" id="e-pu" style="margin-top:8px">Selecione um plano</span>
@@ -715,7 +715,7 @@ body{font-family:var(--font-body);background:linear-gradient(135deg,#E1F5EE 0%,#
         <p style="font-size:12px;color:var(--gray-600);margin-bottom:12px;font-weight:600;text-transform:uppercase;letter-spacing:.04em">Plano único</p>
         <div class="planos-grid">
           <div class="plano-card" id="spu-essencial" onclick="selecionarPlanoGrid('spu','essencial',19.90,this)"><div class="plano-nome">Essencial</div><div class="plano-preco">R$ 19,90<span>/mês·vida</span></div><div class="plano-desc">Telemedicina ilimitada</div></div>
-          <div class="plano-card popular" id="spu-especial" onclick="selecionarPlanoGrid('spu','especial',29.90,this)"><div class="plano-badge">MAIS POPULAR</div><div class="plano-nome">Especial</div><div class="plano-preco">R$ 29,90<span>/mês·vida</span></div><div class="plano-desc">+ Consultas presenciais</div></div>
+          <div class="plano-card popular" id="spu-especial" onclick="selecionarPlanoGrid('spu','especial',29.90,this)"><div class="plano-badge">MAIS POPULAR</div><div class="plano-nome">Especial</div><div class="plano-preco">R$ 29,90<span>/mês·vida</span></div><div class="plano-desc">Telemedicina agendada por especialidades</div></div>
           <div class="plano-card" id="spu-plus" onclick="selecionarPlanoGrid('spu','plus',49.90,this)"><div class="plano-nome">Plus</div><div class="plano-preco">R$ 49,90<span>/mês·vida</span></div><div class="plano-desc">+ Exames + R$100 farmácia</div></div>
         </div>
       </div>
@@ -744,7 +744,7 @@ body{font-family:var(--font-body);background:linear-gradient(135deg,#E1F5EE 0%,#
       <div class="form-card-title">Plano</div>
       <div class="planos-grid">
         <div class="plano-card" id="pl-essencial" onclick="selecionarPlanoGrid('pl','essencial',19.90,this)"><div class="plano-nome">Essencial</div><div class="plano-preco">R$ 19,90<span>/mês·vida</span></div><div class="plano-desc">Telemedicina ilimitada</div></div>
-        <div class="plano-card popular" id="pl-especial" onclick="selecionarPlanoGrid('pl','especial',29.90,this)"><div class="plano-badge">MAIS POPULAR</div><div class="plano-nome">Especial</div><div class="plano-preco">R$ 29,90<span>/mês·vida</span></div><div class="plano-desc">+ Consultas presenciais</div></div>
+        <div class="plano-card popular" id="pl-especial" onclick="selecionarPlanoGrid('pl','especial',29.90,this)"><div class="plano-badge">MAIS POPULAR</div><div class="plano-nome">Especial</div><div class="plano-preco">R$ 29,90<span>/mês·vida</span></div><div class="plano-desc">Telemedicina agendada por especialidades</div></div>
         <div class="plano-card" id="pl-plus" onclick="selecionarPlanoGrid('pl','plus',49.90,this)"><div class="plano-nome">Plus</div><div class="plano-preco">R$ 49,90<span>/mês·vida</span></div><div class="plano-desc">+ Exames + R$100 farmácia</div></div>
       </div>
       <span class="err-msg" id="e-plano" style="margin-top:10px">Selecione um plano para continuar</span>
@@ -788,7 +788,7 @@ body{font-family:var(--font-body);background:linear-gradient(135deg,#E1F5EE 0%,#
       <div class="resumo-row"><span class="rl">Vendedor</span><span class="rv" id="r-vendedor">—</span></div>
       <div class="resumo-row"><span class="rl">Tipo</span><span class="rv" id="r-tipo">—</span></div>
       <div class="resumo-row" id="r-row-sind" style="display:none"><span class="rl" id="r-label-sind">Sindicato</span><span class="rv" id="r-sind">—</span></div>
-      <div class="resumo-row"><span class="rl">Nome</span><span class="rv" id="r-nome">—</span></div>
+      <div class="resumo-row"><span class="rl" id="r-label-nome">Nome</span><span class="rv" id="r-nome">—</span></div>
       <div class="resumo-row"><span class="rl">CPF</span><span class="rv" id="r-doc">—</span></div>
       <div class="resumo-row"><span class="rl">Telefone</span><span class="rv" id="r-tel">—</span></div>
       <div class="resumo-row"><span class="rl">E-mail</span><span class="rv" id="r-email">—</span></div>
@@ -823,8 +823,10 @@ body{font-family:var(--font-body);background:linear-gradient(135deg,#E1F5EE 0%,#
     <div class="form-card">
       <div class="resumo-row"><span class="rl">Vendedor</span><span class="rv" id="rj-vendedor">—</span></div>
       <div class="resumo-row" id="rj-row-sind" style="display:none"><span class="rl">Estipulante (Sindicato)</span><span class="rv" id="rj-sind">—</span></div>
+      <div class="resumo-row"><span class="rl" id="rj-label-tipo">Tipo</span><span class="rv" id="rj-tipo">Pessoa Jurídica</span></div>
       <div class="resumo-row"><span class="rl" id="rj-label-empresa">Empresa (CNPJ)</span><span class="rv" id="rj-cnpj">—</span></div>
       <div class="resumo-row"><span class="rl" id="rj-label-razao">Razão social</span><span class="rv" id="rj-razao">—</span></div>
+      <div class="resumo-row" id="rj-row-fantasia" style="display:none"><span class="rl">Nome fantasia</span><span class="rv" id="rj-fantasia">—</span></div>
       <div class="resumo-row"><span class="rl">Responsável (CPF)</span><span class="rv" id="rj-resp">—</span></div>
       <div class="resumo-row"><span class="rl">Telefone</span><span class="rv" id="rj-tel">—</span></div>
       <div class="resumo-row"><span class="rl">E-mail</span><span class="rv" id="rj-email">—</span></div>
@@ -1019,6 +1021,9 @@ function novaContratacao() {
   pjMod = 'unico'; spjMod = 'unico'; sindMod = 'pf';
   depCount = 0; benPJCount = 0; spfDepCount = 0; benSPJCount = 0;
   pagamento = 'mensal'; produtoSel = null;
+  // Reset flag de proposta
+  const pjEl = document.getElementById('page-resumo-pj');
+  if (pjEl) pjEl.dataset.eraProposta = 'nao';
   Object.keys(planoGrid).forEach(k => delete planoGrid[k]);
   document.querySelectorAll('.tipo-card').forEach(c => c.classList.remove('selected'));
   document.querySelectorAll('.prod-card.ativo').forEach(c => c.classList.remove('selected'));
@@ -1164,12 +1169,25 @@ function irParaResumoPJ(origem) {
     const sv = document.getElementById('sind-select').value;
     document.getElementById('rj-sind').textContent = sv ? SINDICATOS[sv]?.nome : '—';
     // Subestipulante terminology
+    document.getElementById('rj-tipo').textContent = 'Sindicato / Associação';
     document.getElementById('rj-label-empresa').textContent = 'Subestipulante (CNPJ)';
     document.getElementById('rj-label-razao').textContent = 'Razão social (Subestipulante)';
   } else {
     sindEl.style.display = 'none';
+    document.getElementById('rj-tipo').textContent = 'Pessoa Jurídica';
     document.getElementById('rj-label-empresa').textContent = 'Empresa (CNPJ)';
     document.getElementById('rj-label-razao').textContent = 'Razão social';
+  }
+
+  // Nome Fantasia
+  const fantasiaId = isSind ? 'spj-fantasia' : 'pj-fantasia';
+  const fantasiaVal = document.getElementById(fantasiaId)?.value?.trim();
+  const rowFantasia = document.getElementById('rj-row-fantasia');
+  if (fantasiaVal) {
+    document.getElementById('rj-fantasia').textContent = fantasiaVal;
+    rowFantasia.style.display = 'flex';
+  } else {
+    rowFantasia.style.display = 'none';
   }
 
   document.getElementById('rj-cnpj').textContent = document.getElementById(cnpjId)?.value || '—';
@@ -1356,7 +1374,7 @@ function validarPlano() {
 }
 function montarResumoPF() {
   const isSind = document.getElementById('btn-voltar-plano').dataset.origem === 'sind-pf';
-  const tipo = isSind ? 'Sindicato / Associação — Subestipulante PF' : (pfMod==='familiar' ? 'Pessoa Física — Familiar' : 'Pessoa Física — Individual');
+  const tipo = isSind ? 'Sindicato / Associação' : (pfMod==='familiar' ? 'Pessoa Física — Familiar' : 'Pessoa Física — Individual');
   const nomeId = isSind ? 'spf-nome' : 'pf-nome';
   const cpfId = isSind ? 'spf-cpf' : 'pf-cpf';
   const telId = isSind ? 'spf-tel' : 'pf-tel';
@@ -1367,6 +1385,9 @@ function montarResumoPF() {
 
   document.getElementById('r-vendedor').textContent = vendedor ? `${vendedor.nome} (${vendedor.codigo})` : '—';
   document.getElementById('r-tipo').textContent = tipo;
+
+  // Label "Nome" vira "Nome — Subestipulante PF" quando via sindicato
+  document.getElementById('r-label-nome').textContent = isSind ? 'Nome — Subestipulante PF' : 'Nome';
 
   const rSind = document.getElementById('r-row-sind');
   if (isSind) {
@@ -1429,6 +1450,9 @@ function gerarNumProposta() {
 function transmitir() {
   const btns = document.querySelectorAll('.btn-transmitir');
   btns.forEach(b => { b.textContent = 'Transmitindo...'; b.disabled = true; });
+  // Registrar qual resumo estava ativo (PF ou PJ) para o PDF usar
+  const pjAtivo = document.getElementById('page-resumo-pj').classList.contains('active');
+  document.getElementById('page-resumo-pj').dataset.eraProposta = pjAtivo ? 'sim' : 'nao';
   setTimeout(() => {
     btns.forEach(b => { b.innerHTML = '<svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M18 2L2 9l6 3 4 6 6-16z" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Transmitir proposta'; b.disabled = false; });
     document.getElementById('ag-num').textContent = gerarNumProposta();
@@ -1455,15 +1479,41 @@ function baixarPDF() {
   const num = document.getElementById('ag-num').textContent;
   const dataHoje = new Date().toLocaleDateString('pt-BR', {day:'2-digit',month:'long',year:'numeric'});
 
-  // Coletar dados do resumo ativo
+  // ── Capturar dados do estado atual (não do DOM das duas telas) ──
   const dadosResumo = [];
-  document.querySelectorAll('#resumo-card .resumo-row, #page-resumo-pj .form-card .resumo-row').forEach(row => {
-    const l = row.querySelector('.rl')?.textContent?.trim();
-    const v = row.querySelector('.rv')?.textContent?.trim();
-    if (l && v && v !== '—') dadosResumo.push({l, v});
-  });
+  const isSindOrigin = document.getElementById('btn-voltar-plano')?.dataset?.origem === 'sind-pf';
+  const isPJ = (tipoSel === 'pj' || tipoSel === 'sind') && !isSindOrigin;
 
-  // Logo base64 (pega do template existente)
+  const pageResumoPJ = document.getElementById('page-resumo-pj');
+  const usandoPJ = pageResumoPJ?.dataset?.eraProposta === 'sim';
+
+  if (usandoPJ) {
+    // Coletar somente do resumo PJ
+    pageResumoPJ.querySelectorAll('.form-card:first-of-type .resumo-row').forEach(row => {
+      const l = row.querySelector('.rl')?.textContent?.trim();
+      const v = row.querySelector('.rv')?.textContent?.trim();
+      if (l && v && v !== '—' && row.style.display !== 'none') dadosResumo.push({l, v});
+    });
+    // total PJ
+    const totalPJ = document.getElementById('rj-total')?.textContent?.trim();
+    const subCalcPJ = document.getElementById('rj-sub-calc')?.textContent?.trim();
+    if (totalPJ) dadosResumo.push({l: 'Total mensal', v: totalPJ, destaque: true});
+    if (subCalcPJ) dadosResumo.push({l: '', v: subCalcPJ, sub: true});
+  } else {
+    // Coletar somente do resumo PF (resumo-card)
+    document.querySelectorAll('#resumo-card .resumo-row').forEach(row => {
+      if (row.style.display === 'none') return;
+      const l = row.querySelector('.rl')?.textContent?.trim();
+      const v = row.querySelector('.rv')?.textContent?.trim();
+      if (l && v && v !== '—') dadosResumo.push({l, v});
+    });
+    const totalPF = document.getElementById('r-total')?.textContent?.trim();
+    const subCalcPF = document.getElementById('r-sub-calc')?.textContent?.trim();
+    if (totalPF) dadosResumo.push({l: 'Total mensal', v: totalPF, destaque: true});
+    if (subCalcPF) dadosResumo.push({l: '', v: subCalcPF, sub: true});
+  }
+
+  // Logo
   const logoEl = document.querySelector('.logo-slot img');
   const logoSrc = logoEl ? logoEl.src : '';
 
@@ -1474,16 +1524,14 @@ function baixarPDF() {
     *{box-sizing:border-box;margin:0;padding:0}
     body{font-family:'DM Sans',Arial,sans-serif;background:#fff;color:#1E2D2A;font-size:13px;line-height:1.6}
     .page{max-width:740px;margin:0 auto;padding:0}
-    /* Header */
-    .pdf-header{background:#143D35;color:#fff;padding:32px 48px 24px;display:flex;align-items:center;justify-content:space-between}
-    .pdf-logo{font-family:'Sora',sans-serif;font-weight:800;font-size:28px;letter-spacing:-1px;color:#fff}
+    /* Header — fundo claro com borda teal */
+    .pdf-header{background:#F0FAF6;border-bottom:3px solid #1D9E75;padding:28px 48px 22px;display:flex;align-items:center;justify-content:space-between}
+    .pdf-logo{font-family:'Sora',sans-serif;font-weight:800;font-size:28px;letter-spacing:-1px;color:#143D35}
     .pdf-logo span{color:#1D9E75}
     .pdf-header-right{text-align:right}
-    .pdf-num-label{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#9FE1CB;margin-bottom:2px}
-    .pdf-num{font-family:'Sora',sans-serif;font-size:22px;font-weight:700;color:#fff;letter-spacing:.04em}
-    .pdf-date{font-size:11px;color:#9FE1CB;margin-top:4px}
-    /* Green bar */
-    .pdf-bar{height:6px;background:linear-gradient(90deg,#1D9E75,#0F6E56)}
+    .pdf-num-label{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#8DA89E;margin-bottom:2px}
+    .pdf-num{font-family:'Sora',sans-serif;font-size:22px;font-weight:700;color:#143D35;letter-spacing:.04em}
+    .pdf-date{font-size:11px;color:#4A6560;margin-top:4px}
     /* Body */
     .pdf-body{padding:32px 48px}
     .pdf-title{font-family:'Sora',sans-serif;font-size:18px;font-weight:700;color:#143D35;margin-bottom:4px}
@@ -1496,10 +1544,11 @@ function baixarPDF() {
     .pdf-row:last-child{border-bottom:none}
     .pdf-row .lbl{color:#4A6560;min-width:160px;flex-shrink:0}
     .pdf-row .val{color:#1E2D2A;font-weight:500;text-align:right}
-    /* Total */
-    .pdf-total{background:#E1F5EE;border-radius:8px;padding:14px 20px;display:flex;justify-content:space-between;align-items:center;margin-top:16px}
-    .pdf-total .tl{font-family:'Sora',sans-serif;font-size:13px;font-weight:700;color:#0F6E56}
-    .pdf-total .tv{font-family:'Sora',sans-serif;font-size:22px;font-weight:700;color:#085041}
+    .pdf-row.destaque{background:#E1F5EE;border-radius:6px;padding:10px 14px;border:none;margin-top:8px}
+    .pdf-row.destaque .lbl{font-family:'Sora',sans-serif;font-weight:700;color:#0F6E56;font-size:13px}
+    .pdf-row.destaque .val{font-family:'Sora',sans-serif;font-weight:700;color:#085041;font-size:20px}
+    .pdf-row.sub{border:none;padding:2px 14px}
+    .pdf-row.sub .val{font-size:11px;color:#8DA89E;font-weight:400}
     /* Termos */
     .pdf-termos{background:#F8FAF9;border:1px solid #D6DDD9;border-radius:8px;padding:20px;margin-top:28px}
     .pdf-termos h3{font-family:'Sora',sans-serif;font-size:12px;font-weight:700;color:#143D35;margin-bottom:10px;text-transform:uppercase;letter-spacing:.06em}
@@ -1508,30 +1557,34 @@ function baixarPDF() {
     .pdf-sign{margin-top:40px;display:grid;grid-template-columns:1fr 1fr;gap:40px}
     .pdf-sign-box{border-top:1.5px solid #D6DDD9;padding-top:10px}
     .pdf-sign-label{font-size:10px;color:#8DA89E;text-transform:uppercase;letter-spacing:.08em}
+    /* Botão imprimir */
+    .btn-print{display:block;margin:24px auto 0;padding:12px 32px;background:#1D9E75;color:#fff;border:none;border-radius:8px;font-family:'Sora',sans-serif;font-size:14px;font-weight:700;cursor:pointer;letter-spacing:.03em}
+    .btn-print:hover{background:#0F6E56}
     /* Footer */
-    .pdf-footer{background:#143D35;color:#9FE1CB;font-size:10px;text-align:center;padding:14px 48px;margin-top:40px;line-height:1.8}
-    @media print{body{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+    .pdf-footer{background:#F0FAF6;border-top:1px solid #D6DDD9;color:#4A6560;font-size:10px;text-align:center;padding:14px 48px;margin-top:40px;line-height:1.8}
+    @media print{.btn-print{display:none!important}body{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
   </style></head><body>
   <div class="page">
     <div class="pdf-header">
-      <div>${logoSrc ? `<img src="${logoSrc}" style="height:38px;width:auto;margin-bottom:6px;display:block">` : `<div class="pdf-logo">We<span>Life</span></div>`}
-        <div style="font-size:11px;color:#9FE1CB;margin-top:4px">Portal do Vendedor — Saúde Protegida</div></div>
+      <div>${logoSrc ? `<img src="${logoSrc}" style="height:40px;width:auto;display:block;margin-bottom:4px">` : `<div class="pdf-logo">We<span>Life</span></div>`}
+        <div style="font-size:11px;color:#4A6560;margin-top:4px">Portal do Vendedor — Saúde Protegida</div></div>
       <div class="pdf-header-right">
         <div class="pdf-num-label">Nº da Proposta</div>
         <div class="pdf-num">${num}</div>
         <div class="pdf-date">${dataHoje}</div>
       </div>
     </div>
-    <div class="pdf-bar"></div>
     <div class="pdf-body">
       <div class="pdf-title">Proposta de Contratação</div>
       <div class="pdf-subtitle">Produto: Saúde Protegida · Status: Aguardando assinatura</div>
-
       <div class="pdf-section">
         <div class="pdf-section-title">Dados da Contratação</div>
-        ${dadosResumo.map(r => `<div class="pdf-row"><span class="lbl">${r.l}</span><span class="val">${r.v}</span></div>`).join('')}
+        ${dadosResumo.map(r => {
+          if (r.destaque) return `<div class="pdf-row destaque"><span class="lbl">${r.l}</span><span class="val">${r.v}</span></div>`;
+          if (r.sub) return `<div class="pdf-row sub"><span class="lbl"></span><span class="val">${r.v}</span></div>`;
+          return `<div class="pdf-row"><span class="lbl">${r.l}</span><span class="val">${r.v}</span></div>`;
+        }).join('')}
       </div>
-
       <div class="pdf-termos">
         <h3>Termos e Condições de Contratação</h3>
         <p>1. Esta proposta é válida por <strong>30 dias</strong> a partir da data de emissão. A contratação está condicionada à aprovação cadastral e aceitação dos termos pelo contratante.</p>
@@ -1541,7 +1594,6 @@ function baixarPDF() {
         <p>5. Em caso de sinistros, o beneficiário deverá acionar diretamente a operadora do plano, seguindo os procedimentos descritos no manual do beneficiário.</p>
         <p>6. Esta proposta não substitui o contrato formal de adesão. O documento definitivo será enviado ao contratante após a confirmação e aprovação cadastral.</p>
       </div>
-
       <div class="pdf-sign">
         <div class="pdf-sign-box">
           <div class="pdf-sign-label">Vendedor Responsável</div>
@@ -1553,21 +1605,19 @@ function baixarPDF() {
           <div style="margin-top:30px;font-size:12px;color:#D6DDD9">________________________</div>
         </div>
       </div>
+      <button class="btn-print" onclick="window.print()">🖨️ Imprimir / Salvar PDF</button>
     </div>
     <div class="pdf-footer">
       WeLife Saúde · CNPJ: 00.000.000/0001-00 · Rua Exemplo, 1000, São Paulo/SP · contato@welifesaude.com.br<br>
       Proposta Nº ${num} · Emitida em ${dataHoje} · Sujeita às condições gerais do plano contratado
     </div>
   </div>
-  <script>window.onload=function(){window.print();}<\/script>
   </body></html>`;
 
   const blob = new Blob([html], {type:'text/html;charset=utf-8'});
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = `proposta-welife-${num}.html`;
-  a.click();
-  showToast(`Proposta ${num} gerada! Abra o arquivo e use Ctrl+P para salvar em PDF.`,'success');
+  const url = URL.createObjectURL(blob);
+  window.open(url, '_blank');
+  showToast(`Proposta ${num} aberta! Use o botão Imprimir para salvar em PDF.`,'success');
 }
 function concluir() {
   showToast('Contratação concluída com sucesso!','success');
