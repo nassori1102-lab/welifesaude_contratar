@@ -787,7 +787,7 @@ body{font-family:var(--font-body);background:linear-gradient(135deg,#E1F5EE 0%,#
     <div class="form-card" id="resumo-card">
       <div class="resumo-row"><span class="rl">Vendedor</span><span class="rv" id="r-vendedor">—</span></div>
       <div class="resumo-row"><span class="rl">Tipo</span><span class="rv" id="r-tipo">—</span></div>
-      <div class="resumo-row" id="r-row-sind" style="display:none"><span class="rl">Sindicato</span><span class="rv" id="r-sind">—</span></div>
+      <div class="resumo-row" id="r-row-sind" style="display:none"><span class="rl" id="r-label-sind">Sindicato</span><span class="rv" id="r-sind">—</span></div>
       <div class="resumo-row"><span class="rl">Nome</span><span class="rv" id="r-nome">—</span></div>
       <div class="resumo-row"><span class="rl">CPF</span><span class="rv" id="r-doc">—</span></div>
       <div class="resumo-row"><span class="rl">Telefone</span><span class="rv" id="r-tel">—</span></div>
@@ -822,9 +822,9 @@ body{font-family:var(--font-body);background:linear-gradient(135deg,#E1F5EE 0%,#
     <p class="section-title">Resumo da proposta PJ</p><p class="section-sub">Revise antes de transmitir ao cliente</p>
     <div class="form-card">
       <div class="resumo-row"><span class="rl">Vendedor</span><span class="rv" id="rj-vendedor">—</span></div>
-      <div class="resumo-row" id="rj-row-sind" style="display:none"><span class="rl">Sindicato (estipulante)</span><span class="rv" id="rj-sind">—</span></div>
-      <div class="resumo-row"><span class="rl">Empresa (CNPJ)</span><span class="rv" id="rj-cnpj">—</span></div>
-      <div class="resumo-row"><span class="rl">Razão social</span><span class="rv" id="rj-razao">—</span></div>
+      <div class="resumo-row" id="rj-row-sind" style="display:none"><span class="rl">Estipulante (Sindicato)</span><span class="rv" id="rj-sind">—</span></div>
+      <div class="resumo-row"><span class="rl" id="rj-label-empresa">Empresa (CNPJ)</span><span class="rv" id="rj-cnpj">—</span></div>
+      <div class="resumo-row"><span class="rl" id="rj-label-razao">Razão social</span><span class="rv" id="rj-razao">—</span></div>
       <div class="resumo-row"><span class="rl">Responsável (CPF)</span><span class="rv" id="rj-resp">—</span></div>
       <div class="resumo-row"><span class="rl">Telefone</span><span class="rv" id="rj-tel">—</span></div>
       <div class="resumo-row"><span class="rl">E-mail</span><span class="rv" id="rj-email">—</span></div>
@@ -865,7 +865,7 @@ body{font-family:var(--font-body);background:linear-gradient(135deg,#E1F5EE 0%,#
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 1h6l4 4v10H4V1z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><path d="M10 1v4h4M5 9h6M5 11h4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
         Baixar proposta em PDF</button>
       <p style="font-size:12px;color:var(--gray-400);margin-bottom:8px">Proposta completa com todos os dados</p>
-      <button class="btn-concluir" id="btn-concluir" onclick="concluir()">Concluir contratação</button>
+      <button class="btn-concluir" id="btn-concluir" onclick="concluir()" style="display:none">Concluir contratação</button>
       <p style="font-size:12px;color:var(--gray-400);margin-top:10px" id="ag-aviso">Liberado após confirmação do cliente</p>
 
       <div class="teste-box">
@@ -1163,8 +1163,13 @@ function irParaResumoPJ(origem) {
     sindEl.style.display = 'flex';
     const sv = document.getElementById('sind-select').value;
     document.getElementById('rj-sind').textContent = sv ? SINDICATOS[sv]?.nome : '—';
+    // Subestipulante terminology
+    document.getElementById('rj-label-empresa').textContent = 'Subestipulante (CNPJ)';
+    document.getElementById('rj-label-razao').textContent = 'Razão social (Subestipulante)';
   } else {
     sindEl.style.display = 'none';
+    document.getElementById('rj-label-empresa').textContent = 'Empresa (CNPJ)';
+    document.getElementById('rj-label-razao').textContent = 'Razão social';
   }
 
   document.getElementById('rj-cnpj').textContent = document.getElementById(cnpjId)?.value || '—';
@@ -1178,21 +1183,31 @@ function irParaResumoPJ(origem) {
   const qtd = bens.length;
   document.getElementById('rj-bens').textContent = qtd + ' beneficiário(s)';
 
-  // calcular total
+  // calcular total e detalhar planos
   let totalMensal = 0;
   let planoTexto = '—';
   if (modAtual === 'unico') {
     const pg = planoGrid[planoKey];
     if (pg) {
       totalMensal = pg.preco * qtd;
-      planoTexto = `${pg.nome} — R$ ${pg.preco.toFixed(2).replace('.',',')} × ${qtd} vida(s)`;
+      planoTexto = `${qtd}× ${pg.nome} — R$ ${pg.preco.toFixed(2).replace('.',',')} /vida`;
     }
   } else {
+    // Agrupar por plano: {Plus: 3, Essencial: 4, ...}
+    const contagem = {};
     bens.forEach(b => {
       const sel = b.querySelector('.ben-plano-select');
-      if (sel && sel.value && PLANOS[sel.value]) totalMensal += PLANOS[sel.value].preco;
+      if (sel && sel.value && PLANOS[sel.value]) {
+        const p = PLANOS[sel.value];
+        totalMensal += p.preco;
+        contagem[p.nome] = (contagem[p.nome] || 0) + 1;
+      }
     });
-    planoTexto = 'Individual por beneficiário';
+    if (Object.keys(contagem).length > 0) {
+      planoTexto = Object.entries(contagem).map(([nome, n]) => `${n}× ${nome}`).join(', ');
+    } else {
+      planoTexto = 'Individual por beneficiário';
+    }
   }
   document.getElementById('rj-plano').textContent = planoTexto;
   document.getElementById('rj-total').textContent = `R$ ${totalMensal.toFixed(2).replace('.',',')}`;
@@ -1341,7 +1356,7 @@ function validarPlano() {
 }
 function montarResumoPF() {
   const isSind = document.getElementById('btn-voltar-plano').dataset.origem === 'sind-pf';
-  const tipo = isSind ? 'Sindicato / Associação' : (pfMod==='familiar' ? 'Pessoa Física — Familiar' : 'Pessoa Física — Individual');
+  const tipo = isSind ? 'Sindicato / Associação — Subestipulante PF' : (pfMod==='familiar' ? 'Pessoa Física — Familiar' : 'Pessoa Física — Individual');
   const nomeId = isSind ? 'spf-nome' : 'pf-nome';
   const cpfId = isSind ? 'spf-cpf' : 'pf-cpf';
   const telId = isSind ? 'spf-tel' : 'pf-tel';
@@ -1356,6 +1371,7 @@ function montarResumoPF() {
   const rSind = document.getElementById('r-row-sind');
   if (isSind) {
     rSind.style.display = 'flex';
+    document.getElementById('r-label-sind').textContent = 'Estipulante (Sindicato)';
     const sv = document.getElementById('sind-select').value;
     document.getElementById('r-sind').textContent = sv ? SINDICATOS[sv]?.nome : '—';
   } else {
@@ -1380,7 +1396,9 @@ function montarResumoPF() {
   document.getElementById('r-vidas').textContent = vidas + ' vida(s)';
 
   const pg = planoGrid['pl'];
-  document.getElementById('r-plano').textContent = pg ? `${pg.nome} — R$ ${pg.preco.toFixed(2).replace('.',',')}` : '—';
+  // Plano detalhado: "X NomePlano" formato
+  const planoDetalhe = pg ? `${vidas}× ${pg.nome} (R$ ${pg.preco.toFixed(2).replace('.',',')} /vida)` : '—';
+  document.getElementById('r-plano').textContent = planoDetalhe;
   document.getElementById('r-pagamento').textContent = pagamento === 'mensal' ? 'Mensal' : 'Anual (10 parcelas)';
 
   const negVal = parseFloat(document.getElementById('neg-valor').value) || 0;
@@ -1429,32 +1447,127 @@ function simularConfirmacao() {
   document.getElementById('ag-badge').className = 'status-badge confirmado';
   document.getElementById('ag-dot').className = 'status-dot ok';
   document.getElementById('ag-texto').textContent = '✓ Cliente confirmou a contratação!';
-  document.getElementById('btn-concluir').classList.add('liberado');
   document.getElementById('ag-aviso').style.display = 'none';
-  showToast('Cliente confirmou! Você pode concluir a contratação.','success');
+  showToast('Cliente confirmou a contratação! Redirecionando...','success');
+  setTimeout(() => { mostrarConclusao(); }, 1600);
 }
 function baixarPDF() {
   const num = document.getElementById('ag-num').textContent;
-  // Gerar PDF simples com os dados do resumo
-  const linhas = [];
-  linhas.push('PROPOSTA WELIFE SAÚDE');
-  linhas.push('Nº ' + num);
-  linhas.push('');
-  // coletar dados do resumo visível
+  const dataHoje = new Date().toLocaleDateString('pt-BR', {day:'2-digit',month:'long',year:'numeric'});
+
+  // Coletar dados do resumo ativo
+  const dadosResumo = [];
   document.querySelectorAll('#resumo-card .resumo-row, #page-resumo-pj .form-card .resumo-row').forEach(row => {
-    const l = row.querySelector('.rl')?.textContent;
-    const v = row.querySelector('.rv')?.textContent;
-    if (l && v && v !== '—') linhas.push(`${l}: ${v}`);
+    const l = row.querySelector('.rl')?.textContent?.trim();
+    const v = row.querySelector('.rv')?.textContent?.trim();
+    if (l && v && v !== '—') dadosResumo.push({l, v});
   });
-  linhas.push('');
-  linhas.push('Data: ' + new Date().toLocaleDateString('pt-BR'));
-  linhas.push('Vendedor: ' + (vendedor ? `${vendedor.nome} (${vendedor.codigo})` : '—'));
-  const blob = new Blob([linhas.join('\n')], {type:'text/plain;charset=utf-8'});
+
+  // Logo base64 (pega do template existente)
+  const logoEl = document.querySelector('.logo-slot img');
+  const logoSrc = logoEl ? logoEl.src : '';
+
+  const html = `<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8">
+  <title>Proposta WeLife ${num}</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&family=DM+Sans:wght@400;500&display=swap');
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'DM Sans',Arial,sans-serif;background:#fff;color:#1E2D2A;font-size:13px;line-height:1.6}
+    .page{max-width:740px;margin:0 auto;padding:0}
+    /* Header */
+    .pdf-header{background:#143D35;color:#fff;padding:32px 48px 24px;display:flex;align-items:center;justify-content:space-between}
+    .pdf-logo{font-family:'Sora',sans-serif;font-weight:800;font-size:28px;letter-spacing:-1px;color:#fff}
+    .pdf-logo span{color:#1D9E75}
+    .pdf-header-right{text-align:right}
+    .pdf-num-label{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#9FE1CB;margin-bottom:2px}
+    .pdf-num{font-family:'Sora',sans-serif;font-size:22px;font-weight:700;color:#fff;letter-spacing:.04em}
+    .pdf-date{font-size:11px;color:#9FE1CB;margin-top:4px}
+    /* Green bar */
+    .pdf-bar{height:6px;background:linear-gradient(90deg,#1D9E75,#0F6E56)}
+    /* Body */
+    .pdf-body{padding:32px 48px}
+    .pdf-title{font-family:'Sora',sans-serif;font-size:18px;font-weight:700;color:#143D35;margin-bottom:4px}
+    .pdf-subtitle{font-size:12px;color:#4A6560;margin-bottom:28px}
+    /* Section */
+    .pdf-section{margin-bottom:24px}
+    .pdf-section-title{font-family:'Sora',sans-serif;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#1D9E75;border-bottom:2px solid #E1F5EE;padding-bottom:6px;margin-bottom:12px}
+    /* Rows */
+    .pdf-row{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #EEF2F0;font-size:13px;gap:16px}
+    .pdf-row:last-child{border-bottom:none}
+    .pdf-row .lbl{color:#4A6560;min-width:160px;flex-shrink:0}
+    .pdf-row .val{color:#1E2D2A;font-weight:500;text-align:right}
+    /* Total */
+    .pdf-total{background:#E1F5EE;border-radius:8px;padding:14px 20px;display:flex;justify-content:space-between;align-items:center;margin-top:16px}
+    .pdf-total .tl{font-family:'Sora',sans-serif;font-size:13px;font-weight:700;color:#0F6E56}
+    .pdf-total .tv{font-family:'Sora',sans-serif;font-size:22px;font-weight:700;color:#085041}
+    /* Termos */
+    .pdf-termos{background:#F8FAF9;border:1px solid #D6DDD9;border-radius:8px;padding:20px;margin-top:28px}
+    .pdf-termos h3{font-family:'Sora',sans-serif;font-size:12px;font-weight:700;color:#143D35;margin-bottom:10px;text-transform:uppercase;letter-spacing:.06em}
+    .pdf-termos p{font-size:11px;color:#4A6560;line-height:1.7;margin-bottom:6px}
+    /* Assinatura */
+    .pdf-sign{margin-top:40px;display:grid;grid-template-columns:1fr 1fr;gap:40px}
+    .pdf-sign-box{border-top:1.5px solid #D6DDD9;padding-top:10px}
+    .pdf-sign-label{font-size:10px;color:#8DA89E;text-transform:uppercase;letter-spacing:.08em}
+    /* Footer */
+    .pdf-footer{background:#143D35;color:#9FE1CB;font-size:10px;text-align:center;padding:14px 48px;margin-top:40px;line-height:1.8}
+    @media print{body{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+  </style></head><body>
+  <div class="page">
+    <div class="pdf-header">
+      <div>${logoSrc ? `<img src="${logoSrc}" style="height:38px;width:auto;margin-bottom:6px;display:block">` : `<div class="pdf-logo">We<span>Life</span></div>`}
+        <div style="font-size:11px;color:#9FE1CB;margin-top:4px">Portal do Vendedor — Saúde Protegida</div></div>
+      <div class="pdf-header-right">
+        <div class="pdf-num-label">Nº da Proposta</div>
+        <div class="pdf-num">${num}</div>
+        <div class="pdf-date">${dataHoje}</div>
+      </div>
+    </div>
+    <div class="pdf-bar"></div>
+    <div class="pdf-body">
+      <div class="pdf-title">Proposta de Contratação</div>
+      <div class="pdf-subtitle">Produto: Saúde Protegida · Status: Aguardando assinatura</div>
+
+      <div class="pdf-section">
+        <div class="pdf-section-title">Dados da Contratação</div>
+        ${dadosResumo.map(r => `<div class="pdf-row"><span class="lbl">${r.l}</span><span class="val">${r.v}</span></div>`).join('')}
+      </div>
+
+      <div class="pdf-termos">
+        <h3>Termos e Condições de Contratação</h3>
+        <p>1. Esta proposta é válida por <strong>30 dias</strong> a partir da data de emissão. A contratação está condicionada à aprovação cadastral e aceitação dos termos pelo contratante.</p>
+        <p>2. O plano contratado segue as regras da <strong>ANS (Agência Nacional de Saúde Suplementar)</strong>, conforme regulamentação vigente. A cobertura inicia-se após o prazo de carência estabelecido em contrato.</p>
+        <p>3. O pagamento deverá ser efetuado mensalmente até o vencimento estipulado. O atraso superior a 30 dias poderá acarretar a suspensão da cobertura.</p>
+        <p>4. A WeLife Saúde reserva-se o direito de reajustar os valores anuais conforme índice autorizado pela ANS e cláusulas contratuais específicas de cada produto.</p>
+        <p>5. Em caso de sinistros, o beneficiário deverá acionar diretamente a operadora do plano, seguindo os procedimentos descritos no manual do beneficiário.</p>
+        <p>6. Esta proposta não substitui o contrato formal de adesão. O documento definitivo será enviado ao contratante após a confirmação e aprovação cadastral.</p>
+      </div>
+
+      <div class="pdf-sign">
+        <div class="pdf-sign-box">
+          <div class="pdf-sign-label">Vendedor Responsável</div>
+          <div style="margin-top:30px;font-size:12px;color:#1E2D2A">${vendedor ? vendedor.nome : '—'}</div>
+          <div style="font-size:11px;color:#8DA89E">${vendedor ? vendedor.codigo : ''}</div>
+        </div>
+        <div class="pdf-sign-box">
+          <div class="pdf-sign-label">Assinatura do Contratante</div>
+          <div style="margin-top:30px;font-size:12px;color:#D6DDD9">________________________</div>
+        </div>
+      </div>
+    </div>
+    <div class="pdf-footer">
+      WeLife Saúde · CNPJ: 00.000.000/0001-00 · Rua Exemplo, 1000, São Paulo/SP · contato@welifesaude.com.br<br>
+      Proposta Nº ${num} · Emitida em ${dataHoje} · Sujeita às condições gerais do plano contratado
+    </div>
+  </div>
+  <script>window.onload=function(){window.print();}<\/script>
+  </body></html>`;
+
+  const blob = new Blob([html], {type:'text/html;charset=utf-8'});
   const a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
-  a.download = `proposta-${num}.txt`;
+  a.download = `proposta-welife-${num}.html`;
   a.click();
-  showToast(`Proposta ${num} baixada com sucesso!`,'success');
+  showToast(`Proposta ${num} gerada! Abra o arquivo e use Ctrl+P para salvar em PDF.`,'success');
 }
 function concluir() {
   showToast('Contratação concluída com sucesso!','success');
